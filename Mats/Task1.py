@@ -1,33 +1,75 @@
 #Task 1
-
-
-# Encode Nodes
 #-------------
 
-class Nodes():
-  
-  def __init__(self, node):
-    self.node = node
 
+# 1 Node
+#-------
+
+class Node:
+  def __init__(self, nodename):
+    self.nodename = nodename
+    self.nodes = []
+    self.arcs = dict()
 
   def GetNode(self):
-    return self.node
+    return self.nodename
+  def SetNode(self, nodename):
+    self.nodename = nodename
+
+  def GetArcs(self):
+    return self.arcs.values()
+
+
+
+
+
+# 2 Arcs
+#-------
+
+class Arcs(Node):
+  def __init__(self):
+    return
+  
+  def addArc(self, arcNumber, node1, node2):
+    self.nodes.append(node1)
+    self.nodes.append(node2)
+    self.arcs[arcNumber] = [node1, node2]
+
+
+def NewArc(self, arcNumber, node1, node2):
+  
+
+
+def NewStudent(self, identificationNumber):
+    student = self.LookForStudent(identificationNumber)
+    if student!=None:
+      return student
+    student = Student(identificationNumber)
+    self.students[identificationNumber] = student
+    return student
+
+
+
+
+
+
 
   # def SetNode(self):
   #   self.node = node
-    
 
 
-a = Nodes("k1")
-b = Nodes("k3")
-
-# # c = Nodes()
-
-# print(a.node)
 
 
-print(Nodes.GetNode(b) + ' and ' + Nodes.GetNode(a))
+
+
+a = Node("k1")
+b = Node("k3")
+
+print(a.nodename)
+
+# print(Node.GetNode(b) + ' and ' + Node.GetNode(a))
 # print(Nodes.self.values())
+
 
 
 
