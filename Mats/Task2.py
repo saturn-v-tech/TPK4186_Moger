@@ -42,17 +42,20 @@ class Printer:
 
   def PrintArcs(self, arcs, file):                   # assumed arcs is a dictionary grouped with arches at correct place as in test
     file.write('arcs')
-    file.write('\n')
-    for arcgroup in arcs:
+    for arcline in arcs:
       firstInRow = True
-      for arc in arcs[arcgroup]:
+      for arc in arcs[arcline]:
         if firstInRow:
+          file.write('\n')
           file.write('  ')
-          file.write(arc[0] + ' <-> ' + arc[1] + ', ')
+          file.write(arc[0] + ' <-> ' + arc[1])
           firstInRow = False
         else:
-          file.write(arc[0] + ' <-> ' + arc[1] + ', ')
-      file.write('\n')
+          file.write(', ' + arc[0] + ' <-> ' + arc[1])
+      if arcline == list(arcs.keys())[-1]:
+        file.write(';')
+      else:
+        file.write(',')
 
 
 
@@ -61,9 +64,12 @@ class Printer:
 # Test
 printer = Printer()
 nodes = ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-arcs = {1:[['n11', 'n12'], ['n11', 'n21'], ['n12', 'n22']], 2:[['n21', 'n22'], ['n21', 'n31']]}
-# printer.PrintNodes(nodes, sys.stdout)
-printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)
+arcs = {1:[['n11', 'n12'], ['n11', 'n21'], ['n12', 'n22']], 2:[['n21', 'n22'], ['n21', 'n31'], ['n22', 'n32']], 3:[['n31', 'n32']]}    #number in dictionary is the line it belongs to
+
+# printer.PrintNodes(nodes, sys.stdout)                      #Individual test Nodes
+# printer.PrintArcs(arcs, sys.stdout)                        #Individual test Arcs
+printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
+
 
 # arc = arcs[1][1]
 # print(arc)
