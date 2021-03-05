@@ -36,17 +36,10 @@ class Arcs(Node):
     self.arcs[arcNumber] = [node1, node2]
 
 
-def NewArc(self, arcNumber, node1, node2):
+# def NewArc(self, arcNumber, node1, node2):
   
 
 
-def NewStudent(self, identificationNumber):
-    student = self.LookForStudent(identificationNumber)
-    if student!=None:
-      return student
-    student = Student(identificationNumber)
-    self.students[identificationNumber] = student
-    return student
 
 
 
