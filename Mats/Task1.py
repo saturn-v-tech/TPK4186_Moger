@@ -29,6 +29,8 @@ class Nodes:
 
 class Arc:
   def __init__(self, node1, node2):
+    self.node1 = node1
+    self.node2 = node2
     self.arc = [node1, node2]
 
   def GetArc(self):
@@ -99,19 +101,26 @@ class Graph:
 #-----------
 
 test = Graph("testGraph")
-test.NewArc("Hei", "Hallo")
-test.NewArc("morn", "Shalom")
-test.NewNode(12)
-test.DelNode(12)
+
+node1 = test.NewNode("n11")
+node2 = test.NewNode("n12")
+node3 = test.NewNode("n21")
+node4 = test.NewNode("n22")
+node5 = test.NewNode("n31")
+node6 = test.NewNode("n32")
+
+arc1 = test.NewArc(node1, node2)
+arc2 = test.NewArc(node3, node4)
+arc3 = test.NewArc(node2, node4)
+
 
 # print(Graph.GetGraphName(test))
-# print(Graph.GetNodes(test))
-# print(Graph.GetArcs(test))
+# print(test.GetNodes())
+# print(test.GetNode('a'))
+print(test.GetArcs())
 
 # print(test.GetNodes())
 # print(test.GetArcs())
-#
-
 
 
 
