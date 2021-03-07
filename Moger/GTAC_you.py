@@ -1,3 +1,6 @@
+# https://www.youtube.com/watch?v=uFaZY1dVnGs
+# GTAC 2.6: Implementing a Graph Data Structure in Python 
+
 class Graph: 
     def __init__(self, V, E):
         self.E = set(frozenset((u, v)) for  u, v in E) 

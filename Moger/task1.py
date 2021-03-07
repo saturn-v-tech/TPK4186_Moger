@@ -22,10 +22,6 @@ class Edges:
     def __init__(self):
         pass
 
-    def add_edge(self, src, dest):
-        node = Nodes(dest)
-        node.next = Graph[src]
-
 # Node class should  information about that node
 
 class Nodes: 
