@@ -1,3 +1,9 @@
+# Task 2
+# Class for printing a graph to a text file
+
+# 1 packages
+#-----------
+
 import sys
 
 
@@ -71,3 +77,5 @@ printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
 
 
 # print(sorted(nodes1))
+
+
