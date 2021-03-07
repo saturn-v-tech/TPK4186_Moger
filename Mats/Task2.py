@@ -63,26 +63,6 @@ class Printer:
   
   
 
-  # def PrintArcs(self, arcs, file):                   # assumed arcs is a dictionary grouped with arches at correct place as in test
-  #   file.write('arcs')
-  #   for arcline in arcs:
-  #     firstInRow = True
-  #     for arc in arcs[arcline]:
-  #       if firstInRow:
-  #         file.write('\n')
-  #         file.write('  ')
-  #         file.write(arc[0] + ' <-> ' + arc[1])
-  #         firstInRow = False
-  #       else:
-  #         file.write(', ' + arc[0] + ' <-> ' + arc[1])
-  #     if arcline == list(arcs.keys())[-1]:
-  #       file.write(';')
-  #     else:
-  #       file.write(',')
-
-
-
-
 
 
 #Test

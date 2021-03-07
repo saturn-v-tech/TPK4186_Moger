@@ -4,6 +4,7 @@
 # 1 Imported packages
 #--------------------
 
+import sys
 
 
 #Task 1
@@ -83,31 +84,93 @@ class Graph:
       return None
 
 
+#5 Printer
+#---------
+
+class Printer:
+  
+  
+  def PrintGraph(self, graphName, nodes, arcs, file):
+    file.write('graph' + '\t' + str(graphName))
+    file.write('\n')
+    Printer.PrintNodes(self, nodes, file)
+    file.write('\n')
+    Printer.PrintArcs(self, arcs, file)
+    file.write('\n')
+    file.write('end')
+  
+  def PrintNodes(self, nodes, file):           #nodes are assuned format (n11, n21)correct input. sorts if not sorted
+    count = 1
+    file.write('nodes \n')
+    for nodeName in nodes:
+      if count%2 == 1:
+        file.write('  ' + nodeName)
+        count +=1
+      else:
+        file.write(', ')
+        file.write(nodeName)
+        if len(nodes) != count:
+          file.write(',')
+          file.write('\n')
+        else:
+          file.write(';')
+        count +=1
+
+
+  def PrintArcs(self, arcs, file):
+    file.write('arcs')
+    file.write('\n')
+    count = 0
+    lenArcs = 0
+    for arc in arcs:
+      if count == 0:
+        file.write('  ')
+      if count <= 3:
+        file.write(arc[0] + '<->' + arc[1])
+        count +=1
+        lenArcs += 1
+      if len(arcs) != lenArcs:
+        file.write(', ')
+      if count == 3:
+        file.write('\n')
+        count = 0
+      elif len(arcs) == lenArcs:
+        file.write(';')
 
 
 
 
 
 
-
-#Test
-#----
+# Test graph
+#-----------
 
 test = Graph("testGraph")
-test.NewArc("Hei", "Hallo")
-test.NewArc("morn", "Shalom")
-test.NewNode(12)
-# test.DelNode(12)
 
-print(Graph.GetGraphName(test))
-print(Graph.GetNodes(test))
-print(Graph.GetArcs(test))
+node1 = test.NewNode("n11")
+node2 = test.NewNode("n12")
+node3 = test.NewNode("n21")
+node4 = test.NewNode("n22")
+node5 = test.NewNode("n31")
+node6 = test.NewNode("n32")
+
+arc1 = test.NewArc(node1, node2)
+arc2 = test.NewArc(node3, node4)
+arc3 = test.NewArc(node2, node4)
+
+
+# print(Graph.GetGraphName(test))
+# print(test.GetNodes())
+# print(test.GetNode('a'))
+print(test.GetArcs())
 
 # print(test.GetNodes())
 # print(test.GetArcs())
 
-a = test.GetNode(12)
-b = test.GetNode(13)
-print(a)
-
+#Test Printer
+#------------
+printer = Printer()
+nodes = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
+printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
 

@@ -100,24 +100,24 @@ class Graph:
 # Test graph
 #-----------
 
-test = Graph("testGraph")
+# test = Graph("testGraph")
 
-node1 = test.NewNode("n11")
-node2 = test.NewNode("n12")
-node3 = test.NewNode("n21")
-node4 = test.NewNode("n22")
-node5 = test.NewNode("n31")
-node6 = test.NewNode("n32")
+# node1 = test.NewNode("n11")
+# node2 = test.NewNode("n12")
+# node3 = test.NewNode("n21")
+# node4 = test.NewNode("n22")
+# node5 = test.NewNode("n31")
+# node6 = test.NewNode("n32")
 
-arc1 = test.NewArc(node1, node2)
-arc2 = test.NewArc(node3, node4)
-arc3 = test.NewArc(node2, node4)
+# arc1 = test.NewArc(node1, node2)
+# arc2 = test.NewArc(node3, node4)
+# arc3 = test.NewArc(node2, node4)
 
 
 # print(Graph.GetGraphName(test))
 # print(test.GetNodes())
 # print(test.GetNode('a'))
-print(test.GetArcs())
+# print(test.GetArcs())
 
 # print(test.GetNodes())
 # print(test.GetArcs())

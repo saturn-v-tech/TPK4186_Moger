@@ -1,4 +1,4 @@
-# Task 2
+# Task 3
 # Class for Parser
 
 
@@ -6,6 +6,8 @@
 #-----------
 
 import sys
+from Task1 import *
+import re
 
 
 
@@ -15,26 +17,63 @@ import sys
 class Parser:
   
   
-  
-  
   def ImportGraph(self, filename):
     try:
       file = open(filename,'r')
     except:
       sys.stderr.write("Unable to open file " + filename + "\n")
       sys.exit()
+      graph = Parser.ReadGraph(file)
+      return graph
 
 
-    FirstLine = True
-    Nodes = []
-    Arcs = dict()
-    
+
+
+
+  def ReadGraph(self, filename):
+    try:
+      file = open(filename,'r')
+    except:
+      sys.stderr.write("Unable to open file " + filename + "\n")
+      sys.exit()
+      
+    state = 0
+    firstline = True
     
     for line in file:
-      if FirstLine:
-        FirstLine = False
-        
-        
+      newline = line.split()
+
+      if firstline:
+        graphName = newline[1]
+        graph = Graph(graphName)
+        firstline = False
+      elif re.match('nodes', line) != None:
+        state = 1
+      elif re.match('arcs', line) != None:
+        state = 2
+      elif re.match('end', line) != None:
+        break 
+      elif state == 1:
+        nodes = re.findall(r"[a-zA-Z0-9_][0-9]*", line)
+        for node in nodes:
+          node = graph.NewNode(node)
+      elif state == 2:
+        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*)", line)
+        print(arcs)
+    
+
+
+
+    # print(graph.GetNodes())
+
+
+
+
+
+    # print(graph.GetGraphName())
+
+
+
 
 
 
@@ -43,38 +82,4 @@ class Parser:
 
 # Test
 parser = Parser()
-parser.ImportGraph('ParserTesttext.txt')
-
-
-
-
-
-
-# def Import_Championship(filename):
-#   try:
-#     file = open(filename,'r')
-#   except:
-#     sys.stderr.write("Unable to open file " + filename + "\n")
-#     sys.exit()
-
-#   championship = {Championship_Teams:{}, Championship_Games:{}}
-#   teams = []
-#   games = []
-#   for line in file:
-#     line = line.strip()
-#     tokens = line.split('	')
-#     if tokens[0] == Code_TeamsList:
-#       continue
-#     if tokens[0] == Code_GameList:
-#       continue
-#     else:
-#       if len(tokens) == 2:
-#         team = Parser_SetTeam(tokens)
-#         teams.append(team)
-#       if len(tokens) == 4:
-#         game = Game.Game_New(tokens[0], int(tokens[1]),tokens[2],int(tokens[3]))
-#         games.append(game)
-#   championship[Championship_Games] = games
-#   championship[Championship_Teams] = teams
-#   return championship
-
+parser.ReadGraph('ParserTest.txt')
