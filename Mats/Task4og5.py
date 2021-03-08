@@ -1,4 +1,4 @@
-# Task 4
+# Task 5
 # Class for Calculator
 
 
@@ -6,7 +6,7 @@
 #-----------
 from Task1 import *
 from Task3 import *
-
+import matplotlib.pyplot as plt
 
 
 # 2 Class Calculator
@@ -25,9 +25,14 @@ class Calculator:
         nodeDegree[arc.node2] = 0
       nodeDegree[arc.node1] += 1
       nodeDegree[arc.node2] += 1
-    return nodeDegree
-  
+    return nodeDegree                          #nodeDegree = {nodename:nodedegree, .....}
 
+
+  def PlotNodeDegree(self, nodeDegrees):
+    
+    
+    for keys in nodeDegrees:
+      
 
 
 
@@ -45,6 +50,8 @@ graph = parser.ImportGraph('ParserTest.txt')
 #-------------------
 calculator = Calculator()
 # calculator.CalculateDegreeOfNodes(graph)
-print(calculator.CalculateDegreeOfNodes(graph))
+# print(calculator.CalculateDegreeOfNodes(graph))
 
 
+nodeDegrees = calculator.CalculateDegreeOfNodes(graph)
+calculator.PlotNodeDegree(nodeDegrees)

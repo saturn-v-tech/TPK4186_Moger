@@ -37,6 +37,8 @@ class Nodes:
 
 class Arc:
   def __init__(self, node1, node2):
+    self.node1 = node1
+    self.node2 = node2
     self.arc = [node1, node2]
 
   def GetArc(self):
@@ -182,6 +184,26 @@ class Parser:
     return graph
 
 
+# 7 Class Calculator
+#-------------------
+
+class Calculator:
+
+  def CalculateDegreeOfNodes(self, inputGraph):
+    nodeDegree = dict()
+    nodes = inputGraph.GetNodes()
+    arcs = inputGraph.GetArcs()
+    for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
+      nodeDegree[arc.node1] = 1
+      nodeDegree[arc.node2] = 1
+      if nodeDegree.get(arc.node1, None) == None:
+        nodeDegree[arc.node1] = 0
+      if nodeDegree.get(arc.node1, None) == None:
+        nodeDegree[arc.node2] = 0
+      nodeDegree[arc.node1] += 1
+      nodeDegree[arc.node2] += 1
+    return nodeDegree
+
 
 
 
@@ -211,6 +233,7 @@ class Parser:
 # print(test.GetNodes())
 # print(test.GetArcs())
 
+
 #Test Printer
 #------------
 # printer = Printer()
@@ -218,11 +241,24 @@ class Parser:
 # arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
 # printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
 
+
 #Test Parser
 #-----------
-parser = Parser()
-graph = parser.ImportGraph('ParserTest.txt')
+# parser = Parser()
+# graph = parser.ImportGraph('ParserTest.txt')
 
-print(graph.GetGraphName())
-print(graph.GetNodes())
-print(graph.GetArcs())
+# print(graph.GetGraphName())
+# print(graph.GetNodes())
+# print(graph.GetArcs())
+
+
+#Test Calculator
+#---------------
+
+#Imported graph for testing
+#--------------------------
+# parser = Parser()
+# graph = parser.ImportGraph('ParserTest.txt')
+# calculator = Calculator()
+# calculator.CalculateDegreeOfNodes(graph)
+# print(calculator.CalculateDegreeOfNodes(graph))
