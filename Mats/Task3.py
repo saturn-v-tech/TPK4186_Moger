@@ -59,7 +59,7 @@ class Parser:
 # parser = Parser()
 # graph = parser.ImportGraph('ParserTest.txt')
 
-
+# graph.DelNode('n11')
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
 # print(graph.GetArcs())

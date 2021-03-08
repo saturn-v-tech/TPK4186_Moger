@@ -28,12 +28,44 @@ class Calculator:
     return nodeDegree                          #nodeDegree = {nodename:nodedegree, .....}
 
 
-  def PlotNodeDegree(self, nodeDegrees):
-    
-    
-    for keys in nodeDegrees:
-      
+# Task 5
+#-------
 
+
+# 3 Plot degree of each node
+#------------------------
+
+  def PlotNodeDegree(self, inputGraph):
+    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
+    nodeList = []
+    degreeOfNodeList = []
+    for node in nodeDegrees:
+      nodeList.append(node)
+      degreeOfNodeList.append(nodeDegrees[node])
+    
+    plt.barh(nodeList, degreeOfNodeList)
+    plt.xlabel('Degree of Node')
+    plt.ylabel('Node name')
+    plt.show()
+
+
+# 4 Plot distribution of the nodes og graph
+#------------------------------------------
+
+  def PlotNodeDegreeDistritbution(self, inputGraph):
+    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
+    Degrees = list(nodeDegrees.values())
+    maxDegree = max(Degrees)
+    listDegrees = list(range(1, maxDegree+1))
+    listApperance = []
+    for i in range(1, maxDegree+1):
+      NumberOfApperarance = Degrees.count(i)
+      listApperance.append(NumberOfApperarance)
+    plt.bar(listDegrees, listApperance)
+    plt.xticks([i for i in range(1, maxDegree +1)])
+    plt.xlabel('Degree of Node')
+    plt.ylabel('Number of appearances')
+    plt.show()
 
 
 
@@ -52,6 +84,7 @@ calculator = Calculator()
 # calculator.CalculateDegreeOfNodes(graph)
 # print(calculator.CalculateDegreeOfNodes(graph))
 
+# calculator.PlotNodeDegree(graph)
 
-nodeDegrees = calculator.CalculateDegreeOfNodes(graph)
-calculator.PlotNodeDegree(nodeDegrees)
+
+calculator.PlotNodeDegreeDistritbution(graph)
