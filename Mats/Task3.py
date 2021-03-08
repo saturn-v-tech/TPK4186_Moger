@@ -44,7 +44,7 @@ class Parser:
         for node in nodes:
           graph.NewNode(node)
       elif state == 2:
-        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>]*\s*[a-zA-Z0-9_][0-9]*)", line)
+        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
         for arc in arcs:
           arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
           node1 = arc[0]
@@ -56,8 +56,8 @@ class Parser:
 
 
 # Test
-# parser = Parser()
-# graph = parser.ImportGraph('ParserTest.txt')
+parser = Parser()
+graph = parser.ImportGraph('ParserTest.txt')
 
 # graph.DelNode('n11')
 # print(graph.GetGraphName())

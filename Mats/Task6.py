@@ -1,6 +1,5 @@
-# Task 5
-# Class for Calculator
-
+# Task 6
+#-------
 
 # 1 Packages
 #-----------
@@ -14,7 +13,7 @@ import matplotlib.pyplot as plt
 
 class Calculator:
 
-  def CalculateDegreeOfNodes(self, inputGraph):
+  def CalculateDegreeOfNodes(self, inputGraph):           #Input graph is on format created by parser.ImportGrapg
     nodeDegree = dict()
     nodes = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
@@ -26,31 +25,6 @@ class Calculator:
       nodeDegree[arc.node1] += 1
       nodeDegree[arc.node2] += 1
     return nodeDegree                          #nodeDegree = {nodename:nodedegree, .....}
-
-
-# Task 5
-#-------
-# Was insecure about what plot was requested, but assume PlotNodeDegreeDistritbution is the correct
-
-# 3 Plot degree of each node
-#------------------------
-
-  def PlotNodeDegree(self, inputGraph):
-    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
-    nodeList = []
-    degreeOfNodeList = []
-    for node in nodeDegrees:
-      nodeList.append(node)
-      degreeOfNodeList.append(nodeDegrees[node])
-    
-    plt.barh(nodeList, degreeOfNodeList)
-    plt.xlabel('Degree of Node')
-    plt.ylabel('Node name')
-    plt.show()
-
-
-# 4 Plot distribution of the nodes og graph
-#------------------------------------------
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
@@ -68,6 +42,9 @@ class Calculator:
     plt.show()
 
 
+  def 
+
+
 
 #Test
 #----
@@ -81,10 +58,3 @@ graph = parser.ImportGraph('ParserTest.txt')
 # Test of Calculator
 #-------------------
 calculator = Calculator()
-# calculator.CalculateDegreeOfNodes(graph)
-# print(calculator.CalculateDegreeOfNodes(graph))
-
-# calculator.PlotNodeDegree(graph)
-
-
-calculator.PlotNodeDegreeDistritbution(graph)

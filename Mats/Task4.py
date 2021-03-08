@@ -16,7 +16,6 @@ class Calculator:
 
   def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
-    nodes = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
       if nodeDegree.get(arc.node1, None) == None:

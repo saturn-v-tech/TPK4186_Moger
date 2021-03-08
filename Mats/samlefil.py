@@ -6,7 +6,7 @@
 
 import sys
 import re
-
+import matplotlib.pyplot as plt
 
 #Task 1
 #-------------
@@ -177,7 +177,7 @@ class Parser:
       elif state == 2:
         arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>]*\s*[a-zA-Z0-9_][0-9]*)", line)
         for arc in arcs:
-          arc = arc.split('<=>')
+          arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
           node1 = arc[0]
           node2 = arc[1]
           graph.NewArc(node1, node2)
@@ -191,20 +191,35 @@ class Calculator:
 
   def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
-    nodes = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
-      nodeDegree[arc.node1] = 1
-      nodeDegree[arc.node2] = 1
       if nodeDegree.get(arc.node1, None) == None:
         nodeDegree[arc.node1] = 0
-      if nodeDegree.get(arc.node1, None) == None:
+      if nodeDegree.get(arc.node2, None) == None:
         nodeDegree[arc.node2] = 0
       nodeDegree[arc.node1] += 1
       nodeDegree[arc.node2] += 1
     return nodeDegree
 
 
+
+# 8 Plot distribution of the nodes og graph
+#------------------------------------------
+
+  def PlotNodeDegreeDistritbution(self, inputGraph):
+    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
+    Degrees = list(nodeDegrees.values())
+    maxDegree = max(Degrees)
+    listDegrees = list(range(1, maxDegree+1))
+    listApperance = []
+    for i in range(1, maxDegree+1):
+      NumberOfApperarance = Degrees.count(i)
+      listApperance.append(NumberOfApperarance)
+    plt.bar(listDegrees, listApperance)
+    plt.xticks([i for i in range(1, maxDegree +1)])
+    plt.xlabel('Degree of Node')
+    plt.ylabel('Number of appearances')
+    plt.show()
 
 
 
@@ -244,8 +259,8 @@ class Calculator:
 
 #Test Parser
 #-----------
-# parser = Parser()
-# graph = parser.ImportGraph('ParserTest.txt')
+parser = Parser()
+graph = parser.ImportGraph('ParserTest.txt')
 
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
@@ -257,8 +272,9 @@ class Calculator:
 
 #Imported graph for testing
 #--------------------------
-# parser = Parser()
-# graph = parser.ImportGraph('ParserTest.txt')
-# calculator = Calculator()
+calculator = Calculator()
 # calculator.CalculateDegreeOfNodes(graph)
 # print(calculator.CalculateDegreeOfNodes(graph))
+
+# calculator.PlotNodeDegreeDistritbution(graph)                       #Test PlotNodeDegreeDistritbution
+
