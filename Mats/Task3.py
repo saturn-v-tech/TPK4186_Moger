@@ -56,13 +56,14 @@ class Parser:
 
 
 # Test
-parser = Parser()
-graph = parser.ImportGraph('ParserTest.txt')
+# parser = Parser()
+# graph = parser.ImportGraph('ParserTest.txt')
 
 
-print(graph.GetGraphName())
-print(graph.GetNodes())
-print(graph.GetArcs())
+# print(graph.GetGraphName())
+# print(graph.GetNodes())
+# print(graph.GetArcs())
+
 
 
 
