@@ -15,22 +15,8 @@ import re
 #---------------
 
 class Parser:
-  
-  
+
   def ImportGraph(self, filename):
-    try:
-      file = open(filename,'r')
-    except:
-      sys.stderr.write("Unable to open file " + filename + "\n")
-      sys.exit()
-      graph = Parser.ReadGraph(file)
-      return graph
-
-
-
-
-
-  def ReadGraph(self, filename):
     try:
       file = open(filename,'r')
     except:
@@ -56,30 +42,43 @@ class Parser:
       elif state == 1:
         nodes = re.findall(r"[a-zA-Z0-9_][0-9]*", line)
         for node in nodes:
-          node = graph.NewNode(node)
+          graph.NewNode(node)
       elif state == 2:
-        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*)", line)
-        print(arcs)
-    
-
-
-
-    # print(graph.GetNodes())
-
-
-
-
-
-    # print(graph.GetGraphName())
-
-
-
-
-
+        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>]*\s*[a-zA-Z0-9_][0-9]*)", line)
+        for arc in arcs:
+          arc = arc.split('<=>')
+          node1 = arc[0]
+          node2 = arc[1]
+          graph.NewArc(node1, node2)
+    return graph
 
 
 
 
 # Test
 parser = Parser()
-parser.ReadGraph('ParserTest.txt')
+graph = parser.ImportGraph('ParserTest.txt')
+
+
+print(graph.GetGraphName())
+print(graph.GetNodes())
+print(graph.GetArcs())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
