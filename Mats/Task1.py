@@ -18,6 +18,7 @@ class Node:
   def AddArc(self, arc):
     self.arcs.append(arc)
 
+
   def GetArcs(self):
     return self.arcs
 

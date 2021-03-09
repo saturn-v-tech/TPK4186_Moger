@@ -57,46 +57,22 @@ class Calculator:
     connectedList = []                                               #list of connected components C
     candidateList = [node]                                           #List K of candidate nodes(objects, not names)
     while len(candidateList)>0:
-      node = candidateList.pop(0)
-      connectedList.append(node)
-      NeighbourArcs = node.GetArcs()
-      
-
-
-
-
-
-    print(connectedList)
-
-
-
-
-
-
-    # # while len(CandidateList)>0:
-    # SourceNode = CandidateList.pop(0)                  #removes and saves first value of list to value
-    # nodeName = Node(SourceNode)
-    # ConnectedList.append(nodeName)
-    # for arc in arcs:
-    #   node1 = arc.node1
-    #   node2 = arc.node2
-    #   print(node1, node2)
-    #   if node1 == node:
-    #     if node1 not in ConnectedList:
-    #       CandidateList.append(node1)
-    #   elif node2 == node:
-    #     if node2 not in ConnectedList and node2 not in CandidateList:
-    #       CandidateList.append(node1)
-    # print(CandidateList)
-
-
-
-          
-      #   print(node1)
-      #   print(node2)
-
-
-
+      if candidateList[0] in connectedList:
+        candidateList.pop(0)
+      else:
+        node = candidateList.pop(0)
+        connectedList.append(node)
+        NeighbourArcs = node.GetArcs()
+        for arc in NeighbourArcs:
+          node1 = arc.node1
+          node2 = arc.node2
+          if node == node1:
+            if node2 not in connectedList:
+              candidateList.append(node2)
+          elif node == node2:
+            if node1 not in connectedList:
+              candidateList.append(node1)
+    return connectedList
 
 
 
@@ -129,15 +105,17 @@ calculator = Calculator()
 # print(arcs)
 
 # node = Node('n12')
-node = graph.GetNode('n12')
+node = graph.GetNode('n21')
 
-calculator.ExtractConnectedComponentOfNode(node)
-
-
+# calculator.ExtractConnectedComponentOfNode(node)
 
 
 
 
+
+connectedList = calculator.ExtractConnectedComponentOfNode(node)
+for node in connectedList:
+  print(node.GetNodeName())
 
 
 
