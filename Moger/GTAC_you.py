@@ -6,18 +6,18 @@ class Graph:
         self.E = set(frozenset((u, v)) for  u, v in E) 
         self._nbrs = {}
         for v in V:
-            self.addVertex(v)
+            self.addNode(v)
         for u,v in self.E:
             self.addEgde(u, v)
 
-    def addVertex(self, v):
+    def addNode(self, v):
         if v not in self._nbrs:
             self._nbrs[v] = set()
 
     def addEgde(self, u, v):
         self.E.add(frozenset([u, v]))
-        self.addVertex(u)
-        self.addVertex(v)
+        self.addNode(u)
+        self.addNode(v)
         self._nbrs[u].add(v)
         self._nbrs[v].add(u)
 
@@ -28,7 +28,7 @@ class Graph:
             self._nbrs[u].remove(v)
             self._nbrs[v].remove(u)
 
-    def removeVertex(self, u):
+    def removeNode(self, u):
         todelete = list(self.nbrs(u))
         for v in todelete:
             self.removeEgde(u, v)
@@ -50,22 +50,30 @@ class Graph:
         return len(self._nbrs)
 
 if __name__ == '__main__':
-    G = Graph({1, 2, 3}, {(1, 2), (2, 3)})
-    assert(G.deg(1) == 1)
-    assert(G.deg(2) == 2)
-    assert(G.deg(3) == 1)
-    assert(set(G.nbrs(2)) == {1, 3})
-    assert(G.n == 3)
-    assert(G.m == 2)
+    G = Graph(
+        {'n11', 'n12', 'n21', 'n22', 'n31', 'n32'}, 
+        {('n11', 'n12'), 
+        ('n11', 'n21'), 
+        ('n12', 'n22'), 
+        ('n21', 'n22'), 
+        ('n21', 'n31'), 
+        ('n22', 'n32'), 
+        ('n31', 'n32')})
+    assert(G.deg('n11') == 2) # number of deg for specific node
+    assert(G.deg('n12') == 2) # number of deg for specific node
+    assert(G.deg('n21') == 3) # number of deg for specific node
+    assert(set(G.nbrs('n32')) == {'n31', 'n22'}) # check nbrs 
+    assert(G.n == 6) # number of nodes
+    assert(G.m == 7) # number of edges
     
-    G.removeEgde(1, 2)
-    assert(G.n == 3 and G.m == 1)
+    G.removeEgde('n11', 'n21')
+    assert(G.n == 6 and G.m == 6) # number of nodes and edges
 
-    G.addEgde(1, 2)
-    assert(G.n == 3 and G.m == 2)
+    G.addEgde('n31', 'n11')
+    assert(G.n == 6 and G.m == 7) # number of nodes and edges
 
-    G.removeVertex(2)
-    assert(G.n == 2 and G.m == 0)
+    G.removeNode('n31')
+    assert(G.n == 5 and G.m == 4) # number of nodes and edges 
 
     print("Okay")
 
