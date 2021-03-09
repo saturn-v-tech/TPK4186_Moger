@@ -14,22 +14,25 @@ import matplotlib.pyplot as plt
 #2 Node
 #-------
 
-class Nodes:
+class Node:
   def __init__(self, nodeName):
     self.nodeName = nodeName
     self.arcs = []
 
-  def GetNode(self):
+  def GetNodeName(self):
     return self.nodeName
 
-  def SetNode(self, nodeName):
-    self.nodeName = nodeName
+  def AddArc(self, arc):
+    self.arcs.append(arc)
 
   def GetArcs(self):
     return self.arcs
 
-  def NewArc(self, arc):
-    self.arcs.append(arc)
+  def GetVisited(self):
+    return self.visited
+
+  def SetVisited(self, value):
+    self.visited = value
 
 
 # 3 Arcs
@@ -39,13 +42,11 @@ class Arc:
   def __init__(self, node1, node2):
     self.node1 = node1
     self.node2 = node2
-    self.arc = [node1, node2]
+    # self.arc = [node1, node2]
 
   def GetArc(self):
-    return self.arc
+    return self.node1, self.node2
 
-  def SetArc(self, node1, node2):
-    self.arc = [node1, node2]
 
 #4 Graph
 #------
@@ -54,7 +55,7 @@ class Graph:
   def __init__(self, graphName):
     self.graphName = graphName
     self.nodes = dict()
-    self. arcs = []
+    self.arcs = []
 
   def GetGraphName(self):
     return self.graphName
@@ -65,8 +66,9 @@ class Graph:
     return self.nodes
 
   def NewNode(self, nodeName):
-    newNode = Nodes(nodeName)
+    newNode = Node(nodeName)
     self.nodes[nodeName] = newNode
+    return newNode
 
   def DelNode(self, nodeName):
     del self.nodes[nodeName]
@@ -77,6 +79,9 @@ class Graph:
   def NewArc(self, node1, node2):
     arc = Arc(node1, node2)
     self.arcs.append(arc)
+    node1.AddArc(arc)
+    node2.AddArc(arc)
+    return arc
 
   def GetNode(self, nodeName):
     nodes = self.GetNodes()
@@ -86,14 +91,18 @@ class Graph:
     else:
       return None
 
-
 #5 Printer
 #---------
 
 class Printer:
   
   
-  def PrintGraph(self, graphName, nodes, arcs, file):
+  def PrintGraph(self, graphName, nodes, arcs, OutputFile):
+    try:
+      file= open(OutputFile, "w")
+    except:
+      sys.stderr.write("unable to write in file " + OutputFile + "\n")
+      sys.exit()
     file.write('graph' + '\t' + str(graphName))
     file.write('\n')
     Printer.PrintNodes(self, nodes, file)
@@ -101,8 +110,10 @@ class Printer:
     Printer.PrintArcs(self, arcs, file)
     file.write('\n')
     file.write('end')
+    file.flush()
+    file.close()
   
-  def PrintNodes(self, nodes, file):           #nodes are assuned format (n11, n21)correct input. sorts if not sorted
+  def PrintNodes(self, nodes, file):
     count = 1
     file.write('nodes \n')
     for nodeName in nodes:
@@ -129,7 +140,7 @@ class Printer:
       if count == 0:
         file.write('  ')
       if count <= 3:
-        file.write(arc[0] + '<->' + arc[1])
+        file.write(arc[0] + ' <-> ' + arc[1])
         count +=1
         lenArcs += 1
       if len(arcs) != lenArcs:
@@ -149,17 +160,22 @@ class Parser:
 
   def ImportGraph(self, filename):
     try:
-      file = open(filename,'r')
+      file = open(filename, "r")
     except:
-      sys.stderr.write("Unable to open file " + filename + "\n")
+      sys.stderr.write("unable to open file " + filename + "\n")
       sys.exit()
-      
+    graph = self.ReadGraph(file)
+    file.flush()
+    file.close()
+    return graph
+
+
+  def ReadGraph(self, file):
     state = 0
     firstline = True
     
     for line in file:
       newline = line.split()
-
       if firstline:
         graphName = newline[1]
         graph = Graph(graphName)
@@ -175,11 +191,11 @@ class Parser:
         for node in nodes:
           graph.NewNode(node)
       elif state == 2:
-        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>]*\s*[a-zA-Z0-9_][0-9]*)", line)
+        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
         for arc in arcs:
           arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
-          node1 = arc[0]
-          node2 = arc[1]
+          node1 = Node(arc[0])
+          node2 = Node(arc[1])
           graph.NewArc(node1, node2)
     return graph
 
@@ -191,14 +207,20 @@ class Calculator:
 
   def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
+    nodeList = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
+    nameList = nodeList.keys()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
-      if nodeDegree.get(arc.node1, None) == None:
-        nodeDegree[arc.node1] = 0
-      if nodeDegree.get(arc.node2, None) == None:
-        nodeDegree[arc.node2] = 0
-      nodeDegree[arc.node1] += 1
-      nodeDegree[arc.node2] += 1
+      node1 = arc.node1
+      node2 = arc.node2
+      nodeName1 = node1.GetNodeName()
+      nodeName2 = node2.GetNodeName()
+      if nodeDegree.get(nodeName1, None) == None:
+        nodeDegree[nodeName1] = 0
+      if nodeDegree.get(nodeName2, None) == None:
+        nodeDegree[nodeName2] = 0
+      nodeDegree[nodeName1] += 1
+      nodeDegree[nodeName2] += 1
     return nodeDegree
 
 
@@ -211,15 +233,37 @@ class Calculator:
     Degrees = list(nodeDegrees.values())
     maxDegree = max(Degrees)
     listDegrees = list(range(1, maxDegree+1))
-    listApperance = []
+    listDegreeApperance = []
     for i in range(1, maxDegree+1):
       NumberOfApperarance = Degrees.count(i)
-      listApperance.append(NumberOfApperarance)
-    plt.bar(listDegrees, listApperance)
+      listDegreeApperance.append(NumberOfApperarance)
+    plt.bar(listDegrees, listDegreeApperance)
     plt.xticks([i for i in range(1, maxDegree +1)])
     plt.xlabel('Degree of Node')
     plt.ylabel('Number of appearances')
     plt.show()
+
+
+
+
+
+  # def ExtractConnectedComponentOfNode(self, node):
+  #   ConnectedList = []                                               #list of connected components C
+  #   CandidateList = [node]                                           #List K of candidate nodes
+  #   while len(CandidateList)>0:
+  #     SourceNode = CandidateList.pop(0)                  #removes and saves first value of list to value
+  #     # NameSourceNode = SourceNode.getName()
+  #     ConnectedList.append(SourceNode)
+  #     arcs = node.GetNeigbourArcs()                               #This function has to return the neighbourarcs for the node
+  #     print(arcs)                                                #Why empty?
+  #     for arc in arcs:
+  #       node1 = arc.node1
+  #       node2 = arc.node2
+  #       if node1 not in ConnectedList and node1 not in CandidateList:
+  #         CandidateList.append(node1)
+  #       elif node2 not in ConnectedList and node2 not in CandidateList:
+  #         CandidateList.append(node2)
+
 
 
 
@@ -254,7 +298,7 @@ class Calculator:
 # printer = Printer()
 # nodes = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 # arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
-# printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
+# printer.PrintGraph('Grid32', nodes,arcs, 'tesst.txt')          #Test PrintGraph
 
 
 #Test Parser
@@ -277,4 +321,12 @@ calculator = Calculator()
 # print(calculator.CalculateDegreeOfNodes(graph))
 
 # calculator.PlotNodeDegreeDistritbution(graph)                       #Test PlotNodeDegreeDistritbution
+
+#Test ExtractConnectedComponentOfNode
+#------------------------------------
+
+# node = graph.GetNode('n11')
+# print(node)
+
+# calculator.ExtractConnectedComponentOfNode(node)
 
