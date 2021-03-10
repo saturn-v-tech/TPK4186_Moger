@@ -13,18 +13,18 @@ Test these classes by creating a small graph.
 
 class Node:
   def __init__(self, nodeName):
-    self.nodeName = nodeName
-    self.arcs = []
+    self.__nodeName = nodeName
+    self.__arcs = []
     self.visited = False
 
   def GetNodeName(self):
-    return self.nodeName
+    return self.__nodeName
 
   def AddArc(self, arc):
-    self.arcs.append(arc)
+    self.__arcs.append(arc)
 
   def GetArcs(self):
-    return self.arcs
+    return self.__arcs
 
   def GetVisited(self):
     return self.visited
@@ -33,7 +33,7 @@ class Node:
     self.visited = value
 
 
-# 2 Arcs
+# A class to encode arcs
 #-------
 
 class Arc:
@@ -46,7 +46,7 @@ class Arc:
     return self.node1, self.node2
 
 
-#3 Graph
+# A class to encode graphs
 #-------
 
 class Graph:
@@ -93,61 +93,51 @@ class Graph:
 ### TEST SECTION ### 
 
 if __name__ == '__main__':
-    
-    # Test nodes
-    #-----------
 
-    a = Node("hei")
-    b = Node("morna")
-
-    delNode = Node.GetNode(a)
-
-    print(delNode)
-
-    print("Okay")
-
-    # Test arc
-    #---------
-
-    # a = Arc('hei', 'hade')
-    # print(Arc.GetArc(a))
-
-    # Test graph
-    #-----------
+    ### Initialize 
 
     test = Graph("testGraph")
 
-    # node1 = test.NewNode("n11")
-    # node2 = test.NewNode("n12")
-    # node3 = test.NewNode("n21")
-    # node4 = test.NewNode("n22")
-    # node5 = test.NewNode("n31")
-    # node6 = test.NewNode("n32")
+    node1 = test.NewNode("n11")
+    node2 = test.NewNode("n12")
+    node3 = test.NewNode("n21")
+    node4 = test.NewNode("n22")
+    node5 = test.NewNode("n31")
+    node6 = test.NewNode("n32")
 
-    # arc1 = test.NewArc(node1, node2)
-    # arc2 = test.NewArc(node3, node4)
-    # arc3 = test.NewArc(node2, node4)
+    arc1 = test.NewArc(node1, node2)
+    arc2 = test.NewArc(node3, node4)
+    arc3 = test.NewArc(node2, node4)
+
+    # Node
+
+    assert node1.GetNodeName() == 'n11'
+    assert node6.GetNodeName() == 'n32'
+
+    # Arc
+
+    print(test.GetArcs()) 
+
+    print('okay')
 
     # print(node1.GetArcs())
 
-
-
-# node2 = Node('n12')
-# arcs = test.GetArcs()
-# node2.NewNeighbourArc(arcs[0])
-# node2.NewNeighbourArc(arcs[2])
-# a = node2.GetNeigbourArcs()
-# print(node1.arcs)
+    # node2 = Node('n12')
+    # arcs = test.GetArcs()
+    # node2.NewNeighbourArc(arcs[0])
+    # node2.NewNeighbourArc(arcs[2])
+    # a = node2.GetNeigbourArcs()
+    # print(node1.arcs)
 
 
 
-# print(Graph.GetGraphName(test))
-# print(test.GetNodes())
-# print(test.GetNode('a'))
-# print(test.GetArcs())
+    # print(Graph.GetGraphName(test))
+    # print(test.GetNodes())
+    # print(test.GetNode('a'))
+    # print(test.GetArcs())
 
-# print(test.GetNodes())
-# print(test.GetArcs())
+    # print(test.GetNodes())
+    # print(test.GetArcs())
 
 
 """
