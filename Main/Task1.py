@@ -97,49 +97,38 @@ if __name__ == '__main__':
     # Test nodes
     #-----------
 
-    # a = Node("hei")
-    # b = Node("morna")
+    a = Node("hei")
+    b = Node("morna")
 
-    # delNode = Node.GetNode(a)
+    delNode = Node.GetNode(a)
 
-    # print(delNode)
+    print(delNode)
 
-    # print("Okay")
+    print("Okay")
 
+    # Test arc
+    #---------
 
-# Test nodes
-#-----------
+    # a = Arc('hei', 'hade')
+    # print(Arc.GetArc(a))
 
-# a = Nodes("hei")
-# b = Nodes("morna")
+    # Test graph
+    #-----------
 
-# delNode = Nodes.GetNode(a)
+    test = Graph("testGraph")
 
-# print(delNode)
+    # node1 = test.NewNode("n11")
+    # node2 = test.NewNode("n12")
+    # node3 = test.NewNode("n21")
+    # node4 = test.NewNode("n22")
+    # node5 = test.NewNode("n31")
+    # node6 = test.NewNode("n32")
 
-# Test arc
-#---------
+    # arc1 = test.NewArc(node1, node2)
+    # arc2 = test.NewArc(node3, node4)
+    # arc3 = test.NewArc(node2, node4)
 
-# a = Arc('hei', 'hade')
-# print(Arc.GetArc(a))
-
-# Test graph
-#-----------
-
-test = Graph("testGraph")
-
-# node1 = test.NewNode("n11")
-# node2 = test.NewNode("n12")
-# node3 = test.NewNode("n21")
-# node4 = test.NewNode("n22")
-# node5 = test.NewNode("n31")
-# node6 = test.NewNode("n32")
-
-# arc1 = test.NewArc(node1, node2)
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
-
-# print(node1.GetArcs())
+    # print(node1.GetArcs())
 
 
 
