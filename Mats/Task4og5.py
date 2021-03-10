@@ -39,7 +39,7 @@ class Calculator:
 # Was insecure about what plot was requested, but assume PlotNodeDegreeDistritbution is the correct
 
 # 3 Plot degree of each node
-#------------------------
+#---------------------------
 
   def PlotNodeDegree(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)

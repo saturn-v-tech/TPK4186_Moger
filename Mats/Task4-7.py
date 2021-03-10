@@ -1,4 +1,4 @@
-# Task 6
+# Task 4-8
 #-------
 
 # 1 Packages
@@ -91,6 +91,13 @@ class Calculator:
     return graphConnectedList
 
 
+  def PlotSizeDistributionOfGraph(self, graph):
+    lengthConnectedComponents = []
+    
+    
+    
+    
+    print(graph)
 
 
 
@@ -120,7 +127,7 @@ calculator = Calculator()
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
-# node = graph.GetNode('n41')
+# node = graph.GetNode('n11')
 # calculator.ExtractConnectedComponentOfNode(node)
 
 # connectedList = calculator.ExtractConnectedComponentOfNode(node)
@@ -138,9 +145,10 @@ calculator = Calculator()
 #   print('\n')
 
 
+# Test of PlotSizeDistributionOfGraph
+#------------------------------------
 
-
-
+calculator.PlotSizeDistributionOfGraph(graph)
 
 
 
