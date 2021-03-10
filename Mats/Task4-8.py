@@ -89,7 +89,7 @@ class Calculator:
 
 
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
-    lengthConnectedComponents = dict()                                            #Dictionary with {lengh : number of connected list with respective length}
+    lengthConnectedComponents = dict()                                            #Dictionary with {lengh(number of connected components) : number of connected list with respective length}
     graphConnectedList = self.ExtractConnectedComponentOfGraph(graph)
     for connectedList in graphConnectedList:
       lengthInDictionary = lengthConnectedComponents.keys()
@@ -101,16 +101,23 @@ class Calculator:
         
     representedLengthComponents = list(lengthConnectedComponents.keys())
     numberOfLengthComponents = list(lengthConnectedComponents.values())
+    print(representedLengthComponents)
+    print(numberOfLengthComponents)
     plt.bar(representedLengthComponents, numberOfLengthComponents)
     plt.xticks(representedLengthComponents)
-    plt.xlabel('Length of connected components')
+    plt.yticks([i for i in range(1, max(numberOfLengthComponents)+1)])
+    plt.xlabel('Number of connected components')
     plt.ylabel('Number of appearances')
     plt.show()
 
 
 
-  # def CalculateDistance(self, node, graph):
-  #   print('ja')
+  def CalculateDistance(self, node, graph):                         #May not need the graph input as long as node is already made as a part of a graph
+    treatedNodes = []                                               #list of treated components
+    candidateList = [node]                                           #List K of candidate nodes(objects, not names)
+    
+    # while len(candidateList)>0:
+      
 
 
 
@@ -170,10 +177,10 @@ calculator = Calculator()
 
 
 # Test of CalculateDistance
-#--------------------------
-# node = graph.GetNode('n11')
+# --------------------------
+node = graph.GetNode('n11')
 
-# calculator.CalculateDistance(node, graph)
+calculator.CalculateDistance(node, graph)
 
 
 
