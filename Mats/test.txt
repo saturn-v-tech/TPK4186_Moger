@@ -1,9 +1,0 @@
-graph	Grid32
-nodes 
-  a, b,
-  c, d;
-arcs
-  a <-> b, c <-> d, c <-> d, 
-  c <-> d, a <-> b, c <-> d, 
-  c <-> d, c <-> d;
-end
