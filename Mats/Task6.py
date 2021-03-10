@@ -105,7 +105,7 @@ calculator = Calculator()
 # print(arcs)
 
 # node = Node('n12')
-node = graph.GetNode('n21')
+node = graph.GetNode('n51')
 
 # calculator.ExtractConnectedComponentOfNode(node)
 
