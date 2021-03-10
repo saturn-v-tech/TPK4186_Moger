@@ -91,13 +91,28 @@ class Calculator:
     return graphConnectedList
 
 
-  def PlotSizeDistributionOfGraph(self, graph):
-    lengthConnectedComponents = []
-    
-    
-    
-    
-    print(graph)
+  def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
+    lengthConnectedComponents = dict()                                            #Dictionary with {lengh : number of connected list with respective length}
+    graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
+    for connectedList in graphConnectedList:
+      lengthInDictionary = lengthConnectedComponents.keys()
+      lengthConnectedList = len(connectedList)
+      if lengthConnectedList not in lengthInDictionary:
+        lengthConnectedComponents[lengthConnectedList] = 1
+      else:
+        lengthConnectedComponents[lengthConnectedList] +=1
+    representedLengthComponents = list(lengthConnectedComponents.keys())
+    numberOfLengthComponents = list(lengthConnectedComponents.values())
+    plt.bar(representedLengthComponents, representedLengthComponents)
+    plt.xticks(representedLengthComponents)
+    plt.xlabel('Length of connected components')
+    plt.ylabel('Number of appearances')
+    plt.show()
+
+
+
+
+
 
 
 
@@ -148,7 +163,7 @@ calculator = Calculator()
 # Test of PlotSizeDistributionOfGraph
 #------------------------------------
 
-calculator.PlotSizeDistributionOfGraph(graph)
+calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
 
 
 
