@@ -71,7 +71,6 @@ class Calculator:
           elif node == node2:
             if node1 not in nodeConnectedList:
               candidateList.append(node1)
-    # print(len(nodeConnectedList))
     return nodeConnectedList
 
 
@@ -110,8 +109,8 @@ class Calculator:
 
 
 
-  def CalculateDistance(self, node, graph):
-    print('ja')
+  # def CalculateDistance(self, node, graph):
+  #   print('ja')
 
 
 
@@ -172,9 +171,9 @@ calculator = Calculator()
 
 # Test of CalculateDistance
 #--------------------------
-node = graph.GetNode('n11')
+# node = graph.GetNode('n11')
 
-calculator.CalculateDistance(node, graph)
+# calculator.CalculateDistance(node, graph)
 
 
 
