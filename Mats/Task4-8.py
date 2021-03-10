@@ -18,9 +18,7 @@ class Calculator:
 
   def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
-    nodeList = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
-    nameList = nodeList.keys()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
       node1 = arc.node1
       node2 = arc.node2
@@ -86,14 +84,14 @@ class Calculator:
       if node.GetVisited():                                                     #node.GetVisited() returns true if the node is checked in ExtractConnectedComponentOfNode
         continue
       else:
-        nodeConnectedList = calculator.ExtractConnectedComponentOfNode(node)
+        nodeConnectedList = self.ExtractConnectedComponentOfNode(node)
         graphConnectedList.append(nodeConnectedList)
     return graphConnectedList
 
 
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
     lengthConnectedComponents = dict()                                            #Dictionary with {lengh : number of connected list with respective length}
-    graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
+    graphConnectedList = self.ExtractConnectedComponentOfGraph(graph)
     for connectedList in graphConnectedList:
       lengthInDictionary = lengthConnectedComponents.keys()
       lengthConnectedList = len(connectedList)
@@ -101,13 +99,19 @@ class Calculator:
         lengthConnectedComponents[lengthConnectedList] = 1
       else:
         lengthConnectedComponents[lengthConnectedList] +=1
+        
     representedLengthComponents = list(lengthConnectedComponents.keys())
     numberOfLengthComponents = list(lengthConnectedComponents.values())
-    plt.bar(representedLengthComponents, representedLengthComponents)
+    plt.bar(representedLengthComponents, numberOfLengthComponents)
     plt.xticks(representedLengthComponents)
     plt.xlabel('Length of connected components')
     plt.ylabel('Number of appearances')
     plt.show()
+
+
+
+  def CalculateDistance(self, node, graph):
+    print('ja')
 
 
 
@@ -163,7 +167,14 @@ calculator = Calculator()
 # Test of PlotSizeDistributionOfGraph
 #------------------------------------
 
-calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
+# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
+
+
+# Test of CalculateDistance
+#--------------------------
+node = graph.GetNode('n11')
+
+calculator.CalculateDistance(node, graph)
 
 
 
