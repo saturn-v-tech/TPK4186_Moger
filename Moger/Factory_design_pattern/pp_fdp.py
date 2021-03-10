@@ -31,6 +31,9 @@ class Hero:
     power_bonus = {
         'laser': 10 
         'punches and kicks': 5
-        
+        'strength': 8
+        'strategy': 3
     }
+
+    defense_bonus = {}
 
