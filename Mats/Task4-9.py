@@ -113,24 +113,47 @@ class Calculator:
     plt.show()
 
 
-  def CalculateDistance(self, node, graph):                         #May not need the graph input as long as node is already made as a part of a graph
+
+  def CalculateDistance(self, sourceNode, graph):                         #May not need the graph input as long as node is already made as a part of a graph
+    nodesDict = graph.GetNodes()
+    nodes = nodesDict.values()
+    for node in nodes:
+      node.ResetDistance()                                       #Every node gets the distance 0 to start with
+
     treatedNodes = []                                               #list of treated components, C
-    candidateList = [[node, 0]]                                           #List K of candidate nodes(objects, not names)
-    print(candidateList[0])
-    
+    candidateList = [sourceNode]                                           #List K of candidate nodes(objects, not names)
+
+    ListOfNodes = list(graph.GetNodes().values())
 
     while len(candidateList)>0:
-      node = candidateList[0].pop(0)
-      print(node)
-      # treatedNodes.append(node)
-      # NeighbourArcs = node.GetArcs()
-      # print(node)
-    #   for arc in NeighbourArcs:
-    #     print(arc)
-    # print(sourceNode)
+      node = candidateList.pop(0)
+      treatedNodes.append(node)
+      NeighbourArcs = node.GetArcs()
+
+      for arc in NeighbourArcs:
+        node1 = arc.node1
+        node2 = arc.node2
+        if node == node1:
+          if node2 not in treatedNodes and node2 not in candidateList:
+            
+        elif node == node2:
+          if node1 not in treatedNodes and node1 not in candidateList:
+            
+
+            
+    return treatedNodes
 
 
 
+        #   if node2 not in treatedNodes and node2 not in candidateList:
+        #     newDistance = node2.GetDistance() + 1
+        #     node2.SetDistance(newDistance)
+        #     candidateList.append(node2)
+        # elif node == node2:
+        #   if node1 not in treatedNodes and node1 not in candidateList:
+        #     newDistance = node1.GetDistance() + 1
+        #     node1.SetDistance(newDistance)
+        #     candidateList.append(node1)
 
 
 
@@ -189,8 +212,9 @@ calculator = Calculator()
 # --------------------------
 node = graph.GetNode('n12')
 
-calculator.CalculateDistance(node, graph)
-
+NodesWithDistance = calculator.CalculateDistance(node, graph)
+for node in NodesWithDistance:
+  print(node.GetNodeName(), node.GetDistance())
 
 
 

@@ -11,13 +11,13 @@ class Node:
     self.nodeName = nodeName
     self.arcs = []
     self.visited = False
+    self.distance = 0
 
   def GetNodeName(self):
     return self.nodeName
 
   def AddArc(self, arc):
     self.arcs.append(arc)
-
 
   def GetArcs(self):
     return self.arcs
@@ -27,6 +27,15 @@ class Node:
 
   def SetVisited(self, value):
     self.visited = value
+
+  def GetDistance(self):
+    return self.distance
+
+  def SetDistance(self, distance):
+    self.distance = distance
+
+  def ResetDistance(self):
+    self.distance = 0
 
 
 # 2 Arcs
