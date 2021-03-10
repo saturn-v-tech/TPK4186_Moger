@@ -18,12 +18,14 @@ class Node:
   def __init__(self, nodeName):
     self.nodeName = nodeName
     self.arcs = []
+    self.visited = False
 
   def GetNodeName(self):
     return self.nodeName
 
   def AddArc(self, arc):
     self.arcs.append(arc)
+
 
   def GetArcs(self):
     return self.arcs
@@ -35,7 +37,7 @@ class Node:
     self.visited = value
 
 
-# 3 Arcs
+# 2 Arcs
 #-------
 
 class Arc:
@@ -48,7 +50,7 @@ class Arc:
     return self.node1, self.node2
 
 
-#4 Graph
+#3 Graph
 #------
 
 class Graph:
@@ -59,6 +61,7 @@ class Graph:
 
   def GetGraphName(self):
     return self.graphName
+
   def SetGraphName(self, graphName):
     self.graphName = graphName
 
@@ -66,9 +69,9 @@ class Graph:
     return self.nodes
 
   def NewNode(self, nodeName):
-    newNode = Node(nodeName)
-    self.nodes[nodeName] = newNode
-    return newNode
+    node = Node(nodeName)
+    self.nodes[nodeName] = node
+    return node
 
   def DelNode(self, nodeName):
     del self.nodes[nodeName]
@@ -87,7 +90,7 @@ class Graph:
     nodes = self.GetNodes()
     nodenames = nodes.keys()
     if nodeName in nodenames:
-      return nodeName
+      return self.nodes[nodeName]
     else:
       return None
 
@@ -194,8 +197,8 @@ class Parser:
         arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
         for arc in arcs:
           arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
-          node1 = Node(arc[0])
-          node2 = Node(arc[1])
+          node1 = graph.GetNode(arc[0])
+          node2 = graph.GetNode(arc[1])
           graph.NewArc(node1, node2)
     return graph
 
@@ -224,7 +227,6 @@ class Calculator:
     return nodeDegree
 
 
-
 # 8 Plot distribution of the nodes og graph
 #------------------------------------------
 
@@ -245,24 +247,28 @@ class Calculator:
 
 
 
-
-
-  # def ExtractConnectedComponentOfNode(self, node):
-  #   ConnectedList = []                                               #list of connected components C
-  #   CandidateList = [node]                                           #List K of candidate nodes
-  #   while len(CandidateList)>0:
-  #     SourceNode = CandidateList.pop(0)                  #removes and saves first value of list to value
-  #     # NameSourceNode = SourceNode.getName()
-  #     ConnectedList.append(SourceNode)
-  #     arcs = node.GetNeigbourArcs()                               #This function has to return the neighbourarcs for the node
-  #     print(arcs)                                                #Why empty?
-  #     for arc in arcs:
-  #       node1 = arc.node1
-  #       node2 = arc.node2
-  #       if node1 not in ConnectedList and node1 not in CandidateList:
-  #         CandidateList.append(node1)
-  #       elif node2 not in ConnectedList and node2 not in CandidateList:
-  #         CandidateList.append(node2)
+# Extracts connected component of the node that's put i             # Node has to be created by parser so that the connected arcs for a node is made. If not the node won't have any assigned value for arcs.
+#-------------------------------------------------------
+  def ExtractConnectedComponentOfNode(self, node):
+    connectedList = []                                               #list of connected components C
+    candidateList = [node]                                           #List K of candidate nodes(objects, not names)
+    while len(candidateList)>0:
+      if candidateList[0] in connectedList:
+        candidateList.pop(0)
+      else:
+        node = candidateList.pop(0)
+        connectedList.append(node)
+        NeighbourArcs = node.GetArcs()
+        for arc in NeighbourArcs:
+          node1 = arc.node1
+          node2 = arc.node2
+          if node == node1:
+            if node2 not in connectedList:
+              candidateList.append(node2)
+          elif node == node2:
+            if node1 not in connectedList:
+              candidateList.append(node1)
+    return connectedList
 
 
 
