@@ -47,6 +47,7 @@ class Calculator:
     plt.xticks([i for i in range(1, maxDegree +1)])
     plt.xlabel('Degree of Node')
     plt.ylabel('Number of appearances')
+    plt.savefig('NodeDegreeDristribution.pdf')
     plt.show()
 
 
@@ -55,9 +56,6 @@ class Calculator:
     nodeConnectedList = []                                               #list of connected components C
     candidateList = [node]                                           #List K of candidate nodes(objects, not names)
     while len(candidateList)>0:
-      if candidateList[0] in nodeConnectedList:
-        candidateList.pop(0)
-      else:
         node = candidateList.pop(0)
         nodeConnectedList.append(node)
         NeighbourArcs = node.GetArcs()
@@ -66,10 +64,10 @@ class Calculator:
           node1 = arc.node1
           node2 = arc.node2
           if node == node1:
-            if node2 not in nodeConnectedList:
+            if node2 not in nodeConnectedList and node2 not in candidateList:
               candidateList.append(node2)
           elif node == node2:
-            if node1 not in nodeConnectedList:
+            if node1 not in nodeConnectedList and node1 not in candidateList:
               candidateList.append(node1)
     return nodeConnectedList
 
@@ -88,7 +86,8 @@ class Calculator:
     return graphConnectedList
 
 
-  def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
+
+  def CalculateDistributionOfConnectedComponents(self, graph):
     lengthConnectedComponents = dict()                                            #Dictionary with {lengh(number of connected components) : number of connected list with respective length}
     graphConnectedList = self.ExtractConnectedComponentOfGraph(graph)
     for connectedList in graphConnectedList:
@@ -98,27 +97,37 @@ class Calculator:
         lengthConnectedComponents[lengthConnectedList] = 1
       else:
         lengthConnectedComponents[lengthConnectedList] +=1
-        
     representedLengthComponents = list(lengthConnectedComponents.keys())
     numberOfLengthComponents = list(lengthConnectedComponents.values())
-    print(representedLengthComponents)
-    print(numberOfLengthComponents)
+    return representedLengthComponents, numberOfLengthComponents
+
+
+  def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
+    representedLengthComponents, numberOfLengthComponents = self.CalculateDistributionOfConnectedComponents(graph)
     plt.bar(representedLengthComponents, numberOfLengthComponents)
     plt.xticks(representedLengthComponents)
     plt.yticks([i for i in range(1, max(numberOfLengthComponents)+1)])
     plt.xlabel('Number of connected components')
     plt.ylabel('Number of appearances')
+    # plt.savefig('connectedComponentDistributionOfGraph.pdf')
     plt.show()
 
 
-
   def CalculateDistance(self, node, graph):                         #May not need the graph input as long as node is already made as a part of a graph
-    treatedNodes = []                                               #list of treated components
-    candidateList = [node]                                           #List K of candidate nodes(objects, not names)
+    treatedNodes = []                                               #list of treated components, C
+    candidateList = [[node, 0]]                                           #List K of candidate nodes(objects, not names)
+    print(candidateList[0])
     
-    # while len(candidateList)>0:
-      
 
+    while len(candidateList)>0:
+      node = candidateList[0].pop(0)
+      print(node)
+      # treatedNodes.append(node)
+      # NeighbourArcs = node.GetArcs()
+      # print(node)
+    #   for arc in NeighbourArcs:
+    #     print(arc)
+    # print(sourceNode)
 
 
 
@@ -178,7 +187,7 @@ calculator = Calculator()
 
 # Test of CalculateDistance
 # --------------------------
-node = graph.GetNode('n11')
+node = graph.GetNode('n12')
 
 calculator.CalculateDistance(node, graph)
 
