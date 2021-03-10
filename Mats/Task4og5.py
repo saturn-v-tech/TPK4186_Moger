@@ -16,16 +16,22 @@ class Calculator:
 
   def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
-    nodes = inputGraph.GetNodes()
+    nodeList = inputGraph.GetNodes()
     arcs = inputGraph.GetArcs()
+    nameList = nodeList.keys()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
-      if nodeDegree.get(arc.node1, None) == None:
-        nodeDegree[arc.node1] = 0
-      if nodeDegree.get(arc.node2, None) == None:
-        nodeDegree[arc.node2] = 0
-      nodeDegree[arc.node1] += 1
-      nodeDegree[arc.node2] += 1
-    return nodeDegree                          #nodeDegree = {nodename:nodedegree, .....}
+      node1 = arc.node1
+      node2 = arc.node2
+      nodeName1 = node1.GetNodeName()
+      nodeName2 = node2.GetNodeName()
+      if nodeDegree.get(nodeName1, None) == None:
+        nodeDegree[nodeName1] = 0
+      if nodeDegree.get(nodeName2, None) == None:
+        nodeDegree[nodeName2] = 0
+      nodeDegree[nodeName1] += 1
+      nodeDegree[nodeName2] += 1
+    return nodeDegree
+  
 
 
 # Task 5
@@ -87,4 +93,4 @@ calculator = Calculator()
 # calculator.PlotNodeDegree(graph)
 
 
-calculator.PlotNodeDegreeDistritbution(graph)
+# calculator.PlotNodeDegreeDistritbution(graph)

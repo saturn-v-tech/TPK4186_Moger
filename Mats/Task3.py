@@ -18,17 +18,22 @@ class Parser:
 
   def ImportGraph(self, filename):
     try:
-      file = open(filename,'r')
+      file = open(filename, "r")
     except:
-      sys.stderr.write("Unable to open file " + filename + "\n")
+      sys.stderr.write("unable to open file " + filename + "\n")
       sys.exit()
-      
+    graph = self.ReadGraph(file)
+    file.flush()
+    file.close()
+    return graph
+
+
+  def ReadGraph(self, file):
     state = 0
     firstline = True
     
     for line in file:
       newline = line.split()
-
       if firstline:
         graphName = newline[1]
         graph = Graph(graphName)
@@ -47,8 +52,8 @@ class Parser:
         arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
         for arc in arcs:
           arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
-          node1 = arc[0]
-          node2 = arc[1]
+          node1 = graph.GetNode(arc[0])
+          node2 = graph.GetNode(arc[1])
           graph.NewArc(node1, node2)
     return graph
 
@@ -65,7 +70,10 @@ graph = parser.ImportGraph('ParserTest.txt')
 # print(graph.GetArcs())
 
 
-
+# a = graph.GetNode('n11')
+# b = a.GetArcs()
+# for arc in b:
+#   print(arc)
 
 
 

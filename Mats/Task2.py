@@ -13,7 +13,12 @@ import sys
 class Printer:
   
   
-  def PrintGraph(self, graphName, nodes, arcs, file):
+  def PrintGraph(self, graphName, nodes, arcs, OutputFile):
+    try:
+      file= open(OutputFile, "w")
+    except:
+      sys.stderr.write("unable to write in file " + OutputFile + "\n")
+      sys.exit()
     file.write('graph' + '\t' + str(graphName))
     file.write('\n')
     Printer.PrintNodes(self, nodes, file)
@@ -21,6 +26,8 @@ class Printer:
     Printer.PrintArcs(self, arcs, file)
     file.write('\n')
     file.write('end')
+    file.flush()
+    file.close()
   
   def PrintNodes(self, nodes, file):
     count = 1
@@ -70,6 +77,6 @@ class Printer:
 printer = Printer()
 nodes = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
-printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
+printer.PrintGraph('Grid32', nodes,arcs, 'test.txt')          #Test PrintGraph
 
 # print(len(nodes))
