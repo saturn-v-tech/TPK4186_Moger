@@ -92,12 +92,12 @@ class Graph:
 # Test nodes
 #-----------
 
-a = Nodes("hei")
-b = Nodes("morna")
+# a = Nodes("hei")
+# b = Nodes("morna")
 
-delNode = Nodes.GetNode(a)
+# delNode = Nodes.GetNode(a)
 
-print(delNode)
+# print(delNode)
 
 # Test arc
 #---------

@@ -97,14 +97,14 @@ if __name__ == '__main__':
     # Test nodes
     #-----------
 
-    a = Node("hei")
-    b = Node("morna")
+    # a = Node("hei")
+    # b = Node("morna")
 
-    delNode = Node.GetNode(a)
+    # delNode = Node.GetNode(a)
 
-    print(delNode)
+    # print(delNode)
 
-    print("Okay")
+    # print("Okay")
 
 
 # Test nodes
