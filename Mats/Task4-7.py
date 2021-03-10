@@ -83,7 +83,7 @@ class Calculator:
     nodes = nodesDict.values()
     graphConnectedList = []                                               #list of connected components C
     for node in nodes:
-      if node.GetVisited() == True:
+      if node.GetVisited():                                                     #node.GetVisited() returns true if the node is checked in ExtractConnectedComponentOfNode
         continue
       else:
         nodeConnectedList = calculator.ExtractConnectedComponentOfNode(node)
