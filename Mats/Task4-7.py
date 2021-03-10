@@ -54,27 +54,41 @@ class Calculator:
 
 
   def ExtractConnectedComponentOfNode(self, node):
-    connectedList = []                                               #list of connected components C
+    nodeConnectedList = []                                               #list of connected components C
     candidateList = [node]                                           #List K of candidate nodes(objects, not names)
     while len(candidateList)>0:
-      if candidateList[0] in connectedList:
+      if candidateList[0] in nodeConnectedList:
         candidateList.pop(0)
       else:
         node = candidateList.pop(0)
-        connectedList.append(node)
+        nodeConnectedList.append(node)
         NeighbourArcs = node.GetArcs()
+        node.SetVisited(True)
         for arc in NeighbourArcs:
           node1 = arc.node1
           node2 = arc.node2
           if node == node1:
-            if node2 not in connectedList:
+            if node2 not in nodeConnectedList:
               candidateList.append(node2)
           elif node == node2:
-            if node1 not in connectedList:
+            if node1 not in nodeConnectedList:
               candidateList.append(node1)
-    return connectedList
+    # print(len(nodeConnectedList))
+    return nodeConnectedList
 
 
+
+  def ExtractConnectedComponentOfGraph(self, graph):
+    nodesDict = graph.GetNodes()
+    nodes = nodesDict.values()
+    graphConnectedList = []                                               #list of connected components C
+    for node in nodes:
+      if node.GetVisited() == True:
+        continue
+      else:
+        nodeConnectedList = calculator.ExtractConnectedComponentOfNode(node)
+        graphConnectedList.append(nodeConnectedList)
+    return graphConnectedList
 
 
 
@@ -104,18 +118,26 @@ calculator = Calculator()
 # arcs = node.GetArcs()
 # print(arcs)
 
-# node = Node('n12')
-node = graph.GetNode('n51')
-
+# Test of ExtractConnectedComponentOfNode
+#----------------------------------------
+# node = graph.GetNode('n41')
 # calculator.ExtractConnectedComponentOfNode(node)
 
+# connectedList = calculator.ExtractConnectedComponentOfNode(node)
+# for node in connectedList:
+#   print(node.GetNodeName())
 
 
+# Test of ExtractConnectedComponentOfGraph
+#-----------------------------------------
+
+# graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
+# for nodeConnectedList in graphConnectedList:
+#   for node in nodeConnectedList:
+#     print(node.GetNodeName())
+#   print('\n')
 
 
-connectedList = calculator.ExtractConnectedComponentOfNode(node)
-for node in connectedList:
-  print(node.GetNodeName())
 
 
 
