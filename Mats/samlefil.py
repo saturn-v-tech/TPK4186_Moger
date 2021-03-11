@@ -32,7 +32,7 @@ class Node:
     return self.arcs
 
   def GetVisited(self):
-    return self.visited
+    return self.visited                                 #Visited funtions are used to not check nodes twice in ExtractConnectedComponentOfGraph function
 
   def SetVisited(self, value):
     self.visited = value
@@ -40,13 +40,13 @@ class Node:
   def GetDistance(self):
     return self.distance
 
-  def SetDistance(self, distance):
+  def SetDistance(self, distance):                        #Distance functions and variable is used for task 9 and 10
     self.distance = distance
 
   def ResetDistance(self):
     self.distance = 0
 
-  def SetDegree(self, degree):
+  def SetDegree(self, degree):                          #Used to save the degree of a node and easy access in task 11 when degree is used for the probability
     self.degree = degree
 
   def GetDegree(self):
@@ -133,7 +133,7 @@ class Printer:
     file.flush()
     file.close()
   
-  def PrintNodes(self, nodes, file):
+  def PrintNodes(self, nodes, file):                   #Function for printing nodes on the format shown
     count = 1
     file.write('nodes \n')
     for nodeName in nodes:
@@ -150,25 +150,24 @@ class Printer:
           file.write(';')
         count +=1
 
-
-  def PrintArcs(self, arcs, file):
+  def PrintArcs(self, arcs, file):                      #Function for printing arcs on the format shown
     file.write('arcs')
     file.write('\n')
     count = 0
     lenArcs = 0
     for arc in arcs:
-      if count == 0:
+      if count == 0:                              #If count ==0, beginning of line and indent is added
         file.write('  ')
-      if count <= 3:
+      if count <= 3:                                  # if count lower than 4, arc is added
         file.write(arc[0] + ' <-> ' + arc[1])
         count +=1
         lenArcs += 1
-      if len(arcs) != lenArcs:
+      if len(arcs) != lenArcs:         #As long as it's not the last arc, a comma is added
         file.write(', ')
-      if count == 3:
+      if count == 3:                    #New line for every 3 arc
         file.write('\n')
         count = 0
-      elif len(arcs) == lenArcs:
+      elif len(arcs) == lenArcs:           #Last arc gets a ; to end
         file.write(';')
 
 # 6 Class Parser
@@ -386,16 +385,15 @@ calculator = Calculator()               #Nececcary for all testing. leave uncomm
 # Test graph
 #-----------
 
-# test = Graph("testGraph")
-
-# node1 = test.NewNode("n11")
+# test = Graph("testGraph")           #Defining graphobject as test
+# node1 = test.NewNode("n11")           #Adding a new node with name "n11"
 # node2 = test.NewNode("n12")
 # node3 = test.NewNode("n21")
 # node4 = test.NewNode("n22")
 # node5 = test.NewNode("n31")
 # node6 = test.NewNode("n32")
 
-# arc1 = test.NewArc(node1, node2)
+# arc1 = test.NewArc(node1, node2)    #Adding a new arc consisting of node1 and node 2 created above
 # arc2 = test.NewArc(node3, node4)
 # arc3 = test.NewArc(node2, node4)
 
@@ -404,7 +402,6 @@ calculator = Calculator()               #Nececcary for all testing. leave uncomm
 # print(test.GetNodes())
 # print(test.GetNode('a'))
 # print(test.GetArcs())
-# 
 # print(test.GetNodes())
 # print(test.GetArcs())
 
@@ -418,28 +415,19 @@ calculator = Calculator()               #Nececcary for all testing. leave uncomm
 
 #Test Parser
 #-----------
-graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks
+graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
 
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
 # print(graph.GetArcs())
 
 
-#Test Calculator
-#---------------
-
-#Imported graph for testing
-#--------------------------
-# graph = parser.ImportGraph('ParserTest.txt')
-
-
-
-# Test of Calculator
-#-------------------
-
 
 # Test of CalculateDegreeOfNodes
 #-------------------------------
+
+
+
 
 #Output
 #------
@@ -448,8 +436,11 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 # node = graph.GetNode('n12')
 # print(node.GetDegree())
 
+
 # Test of PlotNodeDegreeDistritbution
 #-------------------------------
+
+
 
 
 #Output
@@ -459,6 +450,8 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
+
+
 
 
 #Output
@@ -487,9 +480,12 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 #------------------------------------
 
 
+
+
 #Output
 #------
-calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
+# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
+
 
 
 # Test of CalculateDistance
@@ -504,6 +500,8 @@ calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #
 #   print(node.GetNodeName(), node.GetDistance())
 
 
+
+
 # Test of CalculateDiameter
 # -------------------------
 
@@ -513,6 +511,8 @@ calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #
 #------
 # diameter = calculator.CalculateDiameter(graph)
 # print(diameter)
+
+
 
 
 
