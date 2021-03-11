@@ -119,43 +119,29 @@ class Calculator:
     nodes = nodesDict.values()
     for node in nodes:
       node.ResetDistance()                                       #Every node gets the distance 0 to start with
-
     treatedNodes = []                                               #list of treated components, C
     candidateList = [sourceNode]                                           #List K of candidate nodes(objects, not names)
-
-    ListOfNodes = list(graph.GetNodes().values())
-
     while len(candidateList)>0:
       node = candidateList.pop(0)
       treatedNodes.append(node)
       NeighbourArcs = node.GetArcs()
-
       for arc in NeighbourArcs:
         node1 = arc.node1
         node2 = arc.node2
         if node == node1:
           if node2 not in treatedNodes and node2 not in candidateList:
-            
+            newDistance = node.GetDistance() + 1
+            node2.SetDistance(newDistance)
+            candidateList.append(node2)
         elif node == node2:
           if node1 not in treatedNodes and node1 not in candidateList:
-            
-
-            
+            newDistance = node.GetDistance() + 1
+            node1.SetDistance(newDistance)
+            candidateList.append(node1)
     return treatedNodes
 
 
-
-        #   if node2 not in treatedNodes and node2 not in candidateList:
-        #     newDistance = node2.GetDistance() + 1
-        #     node2.SetDistance(newDistance)
-        #     candidateList.append(node2)
-        # elif node == node2:
-        #   if node1 not in treatedNodes and node1 not in candidateList:
-        #     newDistance = node1.GetDistance() + 1
-        #     node1.SetDistance(newDistance)
-        #     candidateList.append(node1)
-
-
+  def 
 
 
 #Test
@@ -184,7 +170,7 @@ calculator = Calculator()
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
-# node = graph.GetNode('n11')
+# node = graph.GetNode('n12')
 # calculator.ExtractConnectedComponentOfNode(node)
 
 # connectedList = calculator.ExtractConnectedComponentOfNode(node)
