@@ -46,6 +46,12 @@ class Node:
   def ResetDistance(self):
     self.distance = 0
 
+  def SetDegree(self, degree):
+    self.degree = degree
+
+  def GetDegree(self):
+    return self.degree
+
 
 # 2 Arcs
 #-------
@@ -437,8 +443,10 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 
 #Output
 #------
-# print(calculator.CalculateDegreeOfNodes(graph))
-
+# degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
+# print(degreeOfNodes)
+# node = graph.GetNode('n12')
+# print(node.GetDegree())
 
 # Test of PlotNodeDegreeDistritbution
 #-------------------------------

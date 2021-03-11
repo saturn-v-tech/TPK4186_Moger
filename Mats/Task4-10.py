@@ -215,10 +215,10 @@ calculator = Calculator()               #Nececcary for all testing. leave uncomm
 
 #Output
 #------
-# print(calculator.CalculateDegreeOfNodes(graph))
-calculator.CalculateDegreeOfNodes(graph)
-
-
+# degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
+# print(degreeOfNodes)
+# node = graph.GetNode('n12')
+# print(node.GetDegree())
 
 # Test of PlotNodeDegreeDistritbution
 #-------------------------------
