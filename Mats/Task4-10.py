@@ -6,6 +6,7 @@
 from Task1 import *
 from Task3 import *
 import matplotlib.pyplot as plt
+import random
 
 
 # 2 Class Calculator
@@ -30,8 +31,17 @@ class Calculator:
         nodeDegree[nodeName2] = 0
       nodeDegree[nodeName1] += 1
       nodeDegree[nodeName2] += 1
+    self.SetDegreeOfNodes(nodeDegree, inputGraph)
     return nodeDegree
   
+
+  def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
+    nodeNames = list(nodeDegree.keys())
+    for node in nodeNames:
+      degree = nodeDegree[node]
+      node = inputGraph.GetNode(node)
+      node.SetDegree(degree)
+
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
@@ -138,41 +148,94 @@ class Calculator:
             newDistance = node.GetDistance() + 1
             node1.SetDistance(newDistance)
             candidateList.append(node1)
-    return treatedNodes
+    return treatedNodes                                            #The treated nodes contains information about distance. By runnig the for loop in the test you may see the output
 
 
-  def 
+  def CalculateDiameter(self, graph):
+    nodes = graph.GetNodes().values()
+    diameter = 0
+    for node in nodes:
+      treatedNodes = calculator.CalculateDistance(node, graph)
+      if diameter > len(treatedNodes):                             #No need to check distance if the amount of connected nodes is shorter than already discovered diameter
+        continue
+      distances = []
+      for treatedNode in treatedNodes:
+        distances.append(treatedNode.GetDistance())
+      maxDistance = max(distances)
+      if maxDistance > diameter:
+        diameter = maxDistance
+    return diameter
 
 
-#Test
-#----
+
+class Generator:
+
+
+  def BarabasiGraph(self, graphName, numberOfNodes):
+    graph = Graph(graphName)
+    listNodeNames = random.sample(range(1, numberOfNodes+1), numberOfNodes)
+    
+    
+    print(listNodeNames, graph)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Test Calculator
+#---------------
 
 #Imported graph for testing
 #--------------------------
 parser = Parser()
-graph = parser.ImportGraph('ParserTest.txt')
+graph = parser.ImportGraph('ParserTest.txt')     #Graph used for all tests. graph may be changed by adding/removing nodes and arcs in 'ParserTest.txt'
 
 
-# print(graph.GetNodes())
 
 # Test of Calculator
 #-------------------
-calculator = Calculator()
+calculator = Calculator()               #Nececcary for all testing. leave uncommented
 
+# Test of CalculateDegreeOfNodes
+#-------------------------------
 
+#Output
+#------
 # print(calculator.CalculateDegreeOfNodes(graph))
+calculator.CalculateDegreeOfNodes(graph)
+
+
+
+# Test of PlotNodeDegreeDistritbution
+#-------------------------------
+
+
+#Output
+#------
 # calculator.PlotNodeDegreeDistritbution(graph)
 
-# node = graph.GetNode('n11')
-# nodeName = node.GetNodeName()
-# arcs = node.GetArcs()
-# print(arcs)
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
-# node = graph.GetNode('n12')
-# calculator.ExtractConnectedComponentOfNode(node)
 
+
+#Output
+#------
+# node = graph.GetNode('n12')
 # connectedList = calculator.ExtractConnectedComponentOfNode(node)
 # for node in connectedList:
 #   print(node.GetNodeName())
@@ -181,6 +244,10 @@ calculator = Calculator()
 # Test of ExtractConnectedComponentOfGraph
 #-----------------------------------------
 
+
+
+#Output
+#------
 # graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
 # for nodeConnectedList in graphConnectedList:
 #   for node in nodeConnectedList:
@@ -191,16 +258,49 @@ calculator = Calculator()
 # Test of PlotSizeDistributionOfGraph
 #------------------------------------
 
-# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
+
+#Output
+#------
+# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
 
 
 # Test of CalculateDistance
 # --------------------------
-node = graph.GetNode('n12')
 
-NodesWithDistance = calculator.CalculateDistance(node, graph)
-for node in NodesWithDistance:
-  print(node.GetNodeName(), node.GetDistance())
+
+#Output
+#------
+# node = graph.GetNode('n11')
+# NodesWithDistance = calculator.CalculateDistance(node, graph)
+# for node in NodesWithDistance:
+#   print(node.GetNodeName(), node.GetDistance())
+
+
+# Test of CalculateDiameter
+# -------------------------
+
+
+
+#Output
+#------
+# diameter = calculator.CalculateDiameter(graph)
+# print(diameter)
+
+
+
+# Generator
+# ---------
+generator = Generator()
+
+# Test of Generator
+# -----------------
+# generator.BarabasiGraph('test1', 6)
+
+
+
+
+
+
 
 
 

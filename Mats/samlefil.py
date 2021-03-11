@@ -7,6 +7,7 @@
 import sys
 import re
 import matplotlib.pyplot as plt
+import random
 
 #Task 1
 #-------------
@@ -19,13 +20,13 @@ class Node:
     self.nodeName = nodeName
     self.arcs = []
     self.visited = False
+    self.distance = 0
 
   def GetNodeName(self):
     return self.nodeName
 
   def AddArc(self, arc):
     self.arcs.append(arc)
-
 
   def GetArcs(self):
     return self.arcs
@@ -36,8 +37,17 @@ class Node:
   def SetVisited(self, value):
     self.visited = value
 
+  def GetDistance(self):
+    return self.distance
 
-# 3 Arcs
+  def SetDistance(self, distance):
+    self.distance = distance
+
+  def ResetDistance(self):
+    self.distance = 0
+
+
+# 2 Arcs
 #-------
 
 class Arc:
@@ -50,7 +60,7 @@ class Arc:
     return self.node1, self.node2
 
 
-#4 Graph
+#3 Graph
 #------
 
 class Graph:
@@ -93,6 +103,7 @@ class Graph:
       return self.nodes[nodeName]
     else:
       return None
+
 
 #5 Printer
 #---------
@@ -153,8 +164,6 @@ class Printer:
         count = 0
       elif len(arcs) == lenArcs:
         file.write(';')
-
-
 
 # 6 Class Parser
 #---------------
@@ -222,8 +231,18 @@ class Calculator:
         nodeDegree[nodeName2] = 0
       nodeDegree[nodeName1] += 1
       nodeDegree[nodeName2] += 1
-    return nodeDegree
-  
+    self.SetDegreeOfNodes(nodeDegree, inputGraph)
+    return nodeDegree              #dictionary containing nodename and degree of node. outputprint is shown under tests
+
+
+
+  def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
+    nodeNames = list(nodeDegree.keys())
+    for node in nodeNames:
+      degree = nodeDegree[node]
+      node = inputGraph.GetNode(node)
+      node.SetDegree(degree)
+
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
@@ -231,7 +250,6 @@ class Calculator:
     maxDegree = max(Degrees)
     listDegrees = list(range(1, maxDegree+1))
     listDegreeApperance = []
-    print(Degrees)
     for i in range(1, maxDegree+1):
       NumberOfApperarance = Degrees.count(i)
       listDegreeApperance.append(NumberOfApperarance)
@@ -261,7 +279,7 @@ class Calculator:
           elif node == node2:
             if node1 not in nodeConnectedList and node1 not in candidateList:
               candidateList.append(node1)
-    return nodeConnectedList
+    return nodeConnectedList                                                 #Output is a list of nodes(objects) that are connected. prit of names are shown under test (output)
 
 
 
@@ -275,7 +293,7 @@ class Calculator:
       else:
         nodeConnectedList = self.ExtractConnectedComponentOfNode(node)
         graphConnectedList.append(nodeConnectedList)
-    return graphConnectedList
+    return graphConnectedList                                              #Outputlist containing lists of connected components(objects). To see the output with names of nodes, run the for loop mentioned under tests
 
 
 
@@ -296,7 +314,7 @@ class Calculator:
 
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
     representedLengthComponents, numberOfLengthComponents = self.CalculateDistributionOfConnectedComponents(graph)
-    plt.bar(representedLengthComponents, numberOfLengthComponents)
+    plt.bar(representedLengthComponents, numberOfLengthComponents, width = 2)
     plt.xticks(representedLengthComponents)
     plt.yticks([i for i in range(1, max(numberOfLengthComponents)+1)])
     plt.xlabel('Number of connected components')
@@ -310,8 +328,7 @@ class Calculator:
     nodesDict = graph.GetNodes()
     nodes = nodesDict.values()
     for node in nodes:
-      node.ResetDistance()
-
+      node.ResetDistance()                                       #Every node gets the distance 0 to start with
     treatedNodes = []                                               #list of treated components, C
     candidateList = [sourceNode]                                           #List K of candidate nodes(objects, not names)
     while len(candidateList)>0:
@@ -322,14 +339,42 @@ class Calculator:
         node1 = arc.node1
         node2 = arc.node2
         if node == node1:
-          if node2 not in treatedNodes or node2 not in candidateList:
-            print(node)
-        if node == node2:
-          if node1 not in treatedNodes or node1 not in candidateList:
-            print(node)
+          if node2 not in treatedNodes and node2 not in candidateList:
+            newDistance = node.GetDistance() + 1
+            node2.SetDistance(newDistance)
+            candidateList.append(node2)
+        elif node == node2:
+          if node1 not in treatedNodes and node1 not in candidateList:
+            newDistance = node.GetDistance() + 1
+            node1.SetDistance(newDistance)
+            candidateList.append(node1)
+    return treatedNodes                                            #The treated nodes contains information about distance. By runnig the for loop in the test you may see the output
+
+
+  def CalculateDiameter(self, graph):
+    nodes = graph.GetNodes().values()
+    diameter = 0
+    for node in nodes:
+      treatedNodes = calculator.CalculateDistance(node, graph)
+      if diameter > len(treatedNodes):                             #No need to check distance if the amount of connected nodes is shorter than already discovered diameter
+        continue
+      distances = []
+      for treatedNode in treatedNodes:
+        distances.append(treatedNode.GetDistance())
+      maxDistance = max(distances)
+      if maxDistance > diameter:
+        diameter = maxDistance
+    return diameter                                                #Output a number. print shown in tests
 
 
 
+
+
+# Defining classes for use
+#-------------------------
+printer = Printer()
+parser = Parser()
+calculator = Calculator()               #Nececcary for all testing. leave uncommented
 
 
 # Test graph
@@ -360,7 +405,6 @@ class Calculator:
 
 #Test Printer
 #------------
-# printer = Printer()
 # nodes = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 # arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
 # printer.PrintGraph('Grid32', nodes,arcs, 'tesst.txt')          #Test PrintGraph
@@ -368,8 +412,7 @@ class Calculator:
 
 #Test Parser
 #-----------
-# parser = Parser()
-# graph = parser.ImportGraph('ParserTest.txt')
+graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks
 
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
@@ -381,30 +424,38 @@ class Calculator:
 
 #Imported graph for testing
 #--------------------------
-parser = Parser()
-graph = parser.ImportGraph('ParserTest.txt')
+# graph = parser.ImportGraph('ParserTest.txt')
 
 
-# print(graph.GetNodes())
 
 # Test of Calculator
 #-------------------
-calculator = Calculator()
 
 
+# Test of CalculateDegreeOfNodes
+#-------------------------------
+
+#Output
+#------
 # print(calculator.CalculateDegreeOfNodes(graph))
+
+
+# Test of PlotNodeDegreeDistritbution
+#-------------------------------
+
+
+#Output
+#------
 # calculator.PlotNodeDegreeDistritbution(graph)
 
-# node = graph.GetNode('n11')
-# nodeName = node.GetNodeName()
-# arcs = node.GetArcs()
-# print(arcs)
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
-# node = graph.GetNode('n11')
-# calculator.ExtractConnectedComponentOfNode(node)
 
+
+#Output
+#------
+# node = graph.GetNode('n12')
 # connectedList = calculator.ExtractConnectedComponentOfNode(node)
 # for node in connectedList:
 #   print(node.GetNodeName())
@@ -413,6 +464,10 @@ calculator = Calculator()
 # Test of ExtractConnectedComponentOfGraph
 #-----------------------------------------
 
+
+
+#Output
+#------
 # graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
 # for nodeConnectedList in graphConnectedList:
 #   for node in nodeConnectedList:
@@ -423,5 +478,33 @@ calculator = Calculator()
 # Test of PlotSizeDistributionOfGraph
 #------------------------------------
 
-# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
+
+#Output
+#------
+calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
+
+
+# Test of CalculateDistance
+# --------------------------
+
+
+#Output
+#------
+# node = graph.GetNode('n11')
+# NodesWithDistance = calculator.CalculateDistance(node, graph)
+# for node in NodesWithDistance:
+#   print(node.GetNodeName(), node.GetDistance())
+
+
+# Test of CalculateDiameter
+# -------------------------
+
+
+
+#Output
+#------
+# diameter = calculator.CalculateDiameter(graph)
+# print(diameter)
+
+
 

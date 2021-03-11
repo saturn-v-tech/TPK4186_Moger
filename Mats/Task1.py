@@ -37,6 +37,13 @@ class Node:
   def ResetDistance(self):
     self.distance = 0
 
+  def SetDegree(self, degree):
+    self.degree = degree
+
+  def GetDegree(self):
+    return self.degree
+
+
 
 # 2 Arcs
 #-------
