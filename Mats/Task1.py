@@ -12,6 +12,7 @@ class Node:
     self.arcs = []
     self.visited = False
     self.distance = 0
+    self.degree = 0
 
   def GetNodeName(self):
     return self.nodeName
@@ -37,7 +38,7 @@ class Node:
   def ResetDistance(self):
     self.distance = 0
 
-  def SetDegree(self, degree):
+  def SetDegree(self, degree):                          #Used to save the degree of a node and easy access in task 11 when degree is used for the probability
     self.degree = degree
 
   def GetDegree(self):
@@ -66,6 +67,7 @@ class Graph:
     self.graphName = graphName
     self.nodes = dict()
     self.arcs = []
+    self.degree = 0
 
   def GetGraphName(self):
     return self.graphName
@@ -81,9 +83,11 @@ class Graph:
     self.nodes[nodeName] = node
     return node
 
-  def DelNode(self, nodeName):
-    if self.nodes.get(nodeName, None) != None:
+  def DeleteNode(self, nodeName):
+    node = self.GetNode(nodeName)
+    if node in self.nodes.values():
       del self.nodes[nodeName]
+
 
   def GetArcs(self):
     return self.arcs
@@ -160,8 +164,8 @@ arc3 = test.NewArc(node2, node4)
 # print(test.GetNode('a'))
 # print(test.GetArcs())
 
-test.DelNode('n222')
-print(test.GetNodes())
+# test.DeleteNode('n22')
+# print(test.GetNodes())
 # print(test.GetArcs())
-
+# print(test.nodes.get("n11"))
 

@@ -21,6 +21,7 @@ class Node:
     self.arcs = []
     self.visited = False
     self.distance = 0
+    self.degree = 0
 
   def GetNodeName(self):
     return self.nodeName
@@ -89,8 +90,9 @@ class Graph:
     self.nodes[nodeName] = node
     return node
 
-  def DelNode(self, nodeName):
-    if self.nodes.get(nodeName, None) != None:
+  def DeleteNode(self, nodeName):
+    node = self.GetNode(nodeName)
+    if node in self.nodes.values():
       del self.nodes[nodeName]
 
   def GetArcs(self):
@@ -166,7 +168,7 @@ class Printer:
       if count == 0:                              #If count ==0, beginning of line and indent is added
         file.write('  ')
       if count <= 3:                                  # if count lower than 4, arc is added
-        file.write(arc[0] + ' <-> ' + arc[1])
+        file.write(arc.node1.GetNodeName() + ' <-> ' + arc.node2.GetNodeName())
         count +=1
         lenArcs += 1
       if len(arcs) != lenArcs:         #As long as it's not the last arc, a comma is added
@@ -229,7 +231,7 @@ class Parser:
 
 class Calculator:
 
-  def CalculateDegreeOfNodes(self, inputGraph):
+  def CalculateDegreeOfGraph(self, inputGraph):
     nodeDegree = dict()
     arcs = inputGraph.GetArcs()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
@@ -244,19 +246,24 @@ class Calculator:
       nodeDegree[nodeName1] += 1
       nodeDegree[nodeName2] += 1
     self.SetDegreeOfNodes(nodeDegree, inputGraph)
-    return nodeDegree              #dictionary containing nodename and degree of node. outputprint is shown under tests
+    return nodeDegree                             #dictionary containing nodename and degree of node. outputprint is shown under tests
+
 
   def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
     nodeNames = list(nodeDegree.keys())
     for node in nodeNames:
-      degree = nodeDegree[node]
+      degree = nodeDegree[node]              #Every arc have two nodes. therefore the total degree of a graph is 2 times amount of arcs
       node = inputGraph.GetNode(node)
       node.SetDegree(degree)
 
+
+
   def SetDegreeOfGraph(self, inputGraph):
     arcs = inputGraph.GetArcs()
-    degree = len(arcs)*2                                    #Every arc have two nodes. therefore the total degree of a graph is 2 times amount of arcs
-    inputGraph.SetDegree(degree)
+    degree = len(arcs)*2
+    inputGraph.SetDegree(degree)  
+
+
 
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
@@ -383,6 +390,34 @@ class Calculator:
 
 
 
+class Generator:
+
+  def BarabasiGraph(self, graphName, size, NumberOfInitinalNodes):
+    calculator = Calculator()
+    graph = Graph(graphName)
+    listNodeNames = list(range(1, size+1))
+    for index in range(0, NumberOfInitinalNodes):                                               #Creating nodes in initial connected network
+      graph.NewNode(str(listNodeNames[index]))
+    listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
+    for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
+      if i == 0:
+        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+        graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
+      else:
+        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+    for index in range(NumberOfInitinalNodes, len(listNodeNames)):          #loop to get through the rest of the nodes that are not in the initial connected network
+      newNode = graph.NewNode(str(listNodeNames[index]))
+      nodes = graph.GetNodes().values()
+      calculator.CalculateDegreeOfGraph(graph)
+      calculator.SetDegreeOfGraph(graph)
+      for node in nodes:
+        probability = node.GetDegree()/graph.GetDegree()
+        if random.random()<probability:                       # If the probability is higher than the randomly made number, an arc is made between the newnode and existing nodes in graph
+          graph.NewArc(newNode, node)
+      if len(newNode.GetArcs()) == 0:
+        graph.DeleteNode(newNode.nodeName)
+    return graph
+
 
 
 # Defining classes for use
@@ -390,6 +425,7 @@ class Calculator:
 printer = Printer()
 parser = Parser()
 calculator = Calculator()               #Nececcary for all testing. leave uncommented
+generator = Generator()
 
 
 # Test graph
@@ -418,9 +454,18 @@ calculator = Calculator()               #Nececcary for all testing. leave uncomm
 
 #Test Printer
 #------------
-# nodes = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
-# arcs = [['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd'], ['a', 'b'], ['c', 'd'], ['c', 'd'], ['c', 'd']]
-# printer.PrintGraph('Grid32', nodes,arcs, 'tesst.txt')          #Test PrintGraph
+
+
+
+#Output
+#------
+
+testgraph = generator.BarabasiGraph('test1', 30, 6)
+graphName = testgraph.GetGraphName()
+nodeNames = list(testgraph.GetNodes().keys())
+arcs = testgraph.GetArcs()
+
+printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
 
 
 #Test Parser
@@ -524,5 +569,12 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 
 
 
+# Generator
+# ---------
+generator = Generator()
+
+# Test of Generator
+# -----------------
+# testgraph = generator.BarabasiGraph('test1', 20, 2)
 
 

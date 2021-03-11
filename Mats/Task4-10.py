@@ -40,12 +40,16 @@ class Calculator:
     for node in nodeNames:
       degree = nodeDegree[node]
       node = inputGraph.GetNode(node)
+      if node == None:
+        continue
       node.SetDegree(degree)
+
 
   def SetDegreeOfGraph(self, inputGraph):
     arcs = inputGraph.GetArcs()
     degree = len(arcs)*2
     inputGraph.SetDegree(degree)
+    
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfGraph(inputGraph)
@@ -171,14 +175,14 @@ class Calculator:
     return diameter
 
 
-
 class Generator:
 
   def BarabasiGraph(self, graphName, size, NumberOfInitinalNodes):
+    calculator = Calculator()
     graph = Graph(graphName)
-    listNodeNames = random.sample(range(1, size+1), size)
-    for node in listNodeNames:                                               #Creating nodes in the graph
-      graph.NewNode(node)
+    listNodeNames = list(range(1, size+1))
+    for index in range(NumberOfInitinalNodes):                                               #Creating nodes in initial connected network
+      graph.NewNode(str(listNodeNames[index]))
     listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
     for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
       if i == 0:
@@ -186,13 +190,19 @@ class Generator:
         graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
       else:
         graph.NewArc(listOfNodes[i], listOfNodes[i+1])
-    for index in range()
+    for index in range(NumberOfInitinalNodes-1, len(listNodeNames)):          #loop to get through the rest of the nodes that are not in the initial connected network
+      newNode = graph.NewNode(str(listNodeNames[index]))
+      nodes = graph.GetNodes().values()
+      calculator.CalculateDegreeOfGraph(graph)
+      calculator.SetDegreeOfGraph(graph)
+      for node in nodes:
+        probability = node.GetDegree()/graph.GetDegree()
+        if random.random()<probability:
+          graph.NewArc(newNode, node)
+      if len(newNode.GetArcs()) == 0:
+        graph.DeleteNode(newNode.nodeName)
+    return graph
 
-
-
-
-    # for node in graph.GetNodes().values():                          #GetNodes returns dictionary with 'nodeName':node
-    #   print(node)
 
 
 
@@ -310,11 +320,14 @@ generator = Generator()
 
 # Test of Generator
 # -----------------
-generator.BarabasiGraph('test1', 20, 4)
+testgraph = generator.BarabasiGraph('test1', 40, 3)
+graphName = testgraph.GetGraphName()
+nodeNames = list(testgraph.GetNodes().keys())
+arcs = testgraph.GetArcs()
 
-
-
-
+# print(nodeNames)
+# print(graphName)
+# print(len(arcs))
 
 
 
