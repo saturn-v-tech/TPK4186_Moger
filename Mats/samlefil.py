@@ -90,7 +90,8 @@ class Graph:
     return node
 
   def DelNode(self, nodeName):
-    del self.nodes[nodeName]
+    if self.nodes.get(nodeName, None) != None:
+      del self.nodes[nodeName]
 
   def GetArcs(self):
     return self.arcs
@@ -110,13 +111,19 @@ class Graph:
     else:
       return None
 
+  def SetDegree(self, degree):                            #Added to access easy for task 11
+    self.degree = degree
+
+  def GetDegree(self):
+    return self.degree
+
 
 #5 Printer
 #---------
 
 class Printer:
-  
-  
+
+
   def PrintGraph(self, graphName, nodes, arcs, OutputFile):
     try:
       file= open(OutputFile, "w")
@@ -239,14 +246,17 @@ class Calculator:
     self.SetDegreeOfNodes(nodeDegree, inputGraph)
     return nodeDegree              #dictionary containing nodename and degree of node. outputprint is shown under tests
 
-
-
   def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
     nodeNames = list(nodeDegree.keys())
     for node in nodeNames:
       degree = nodeDegree[node]
       node = inputGraph.GetNode(node)
       node.SetDegree(degree)
+
+  def SetDegreeOfGraph(self, inputGraph):
+    arcs = inputGraph.GetArcs()
+    degree = len(arcs)*2                                    #Every arc have two nodes. therefore the total degree of a graph is 2 times amount of arcs
+    inputGraph.SetDegree(degree)
 
 
   def PlotNodeDegreeDistritbution(self, inputGraph):

@@ -82,7 +82,8 @@ class Graph:
     return node
 
   def DelNode(self, nodeName):
-    del self.nodes[nodeName]
+    if self.nodes.get(nodeName, None) != None:
+      del self.nodes[nodeName]
 
   def GetArcs(self):
     return self.arcs
@@ -102,7 +103,11 @@ class Graph:
     else:
       return None
 
+  def SetDegree(self, degree):
+    self.degree = degree
 
+  def GetDegree(self):
+    return self.degree
 
 
 # Test nodes
@@ -126,16 +131,16 @@ class Graph:
 
 test = Graph("testGraph")
 
-# node1 = test.NewNode("n11")
-# node2 = test.NewNode("n12")
-# node3 = test.NewNode("n21")
-# node4 = test.NewNode("n22")
-# node5 = test.NewNode("n31")
-# node6 = test.NewNode("n32")
+node1 = test.NewNode("n11")
+node2 = test.NewNode("n12")
+node3 = test.NewNode("n21")
+node4 = test.NewNode("n22")
+node5 = test.NewNode("n31")
+node6 = test.NewNode("n32")
 
-# arc1 = test.NewArc(node1, node2)
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
+arc1 = test.NewArc(node1, node2)
+arc2 = test.NewArc(node3, node4)
+arc3 = test.NewArc(node2, node4)
 
 # print(node1.GetArcs())
 
@@ -155,8 +160,8 @@ test = Graph("testGraph")
 # print(test.GetNode('a'))
 # print(test.GetArcs())
 
-# print(test.GetNodes())
+test.DelNode('n222')
+print(test.GetNodes())
 # print(test.GetArcs())
-
 
 

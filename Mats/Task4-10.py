@@ -17,7 +17,7 @@ import random
 
 class Calculator:
 
-  def CalculateDegreeOfNodes(self, inputGraph):
+  def CalculateDegreeOfGraph(self, inputGraph):
     nodeDegree = dict()
     arcs = inputGraph.GetArcs()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
@@ -42,9 +42,13 @@ class Calculator:
       node = inputGraph.GetNode(node)
       node.SetDegree(degree)
 
+  def SetDegreeOfGraph(self, inputGraph):
+    arcs = inputGraph.GetArcs()
+    degree = len(arcs)*2
+    inputGraph.SetDegree(degree)
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
-    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
+    nodeDegrees = self.CalculateDegreeOfGraph(inputGraph)
     Degrees = list(nodeDegrees.values())
     maxDegree = max(Degrees)
     listDegrees = list(range(1, maxDegree+1))
@@ -170,13 +174,25 @@ class Calculator:
 
 class Generator:
 
-
-  def BarabasiGraph(self, graphName, numberOfNodes):
+  def BarabasiGraph(self, graphName, size, NumberOfInitinalNodes):
     graph = Graph(graphName)
-    listNodeNames = random.sample(range(1, numberOfNodes+1), numberOfNodes)
-    
-    
-    print(listNodeNames, graph)
+    listNodeNames = random.sample(range(1, size+1), size)
+    for node in listNodeNames:                                               #Creating nodes in the graph
+      graph.NewNode(node)
+    listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
+    for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
+      if i == 0:
+        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+        graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
+      else:
+        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+    for index in range()
+
+
+
+
+    # for node in graph.GetNodes().values():                          #GetNodes returns dictionary with 'nodeName':node
+    #   print(node)
 
 
 
@@ -210,12 +226,12 @@ graph = parser.ImportGraph('ParserTest.txt')     #Graph used for all tests. grap
 #-------------------
 calculator = Calculator()               #Nececcary for all testing. leave uncommented
 
-# Test of CalculateDegreeOfNodes
+# Test of CalculateDegreeOfGraph
 #-------------------------------
 
 #Output
 #------
-# degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
+# degreeOfNodes = calculator.CalculateDegreeOfGraph(graph)
 # print(degreeOfNodes)
 # node = graph.GetNode('n12')
 # print(node.GetDegree())
@@ -294,7 +310,7 @@ generator = Generator()
 
 # Test of Generator
 # -----------------
-# generator.BarabasiGraph('test1', 6)
+generator.BarabasiGraph('test1', 20, 4)
 
 
 
