@@ -420,34 +420,6 @@ class Generator:
 
 
 
-# def VerifyingSingleConnectedComponent(graph):
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Defining classes for use
@@ -458,6 +430,78 @@ printer = Printer()
 parser = Parser()
 calculator = Calculator()
 generator = Generator()
+
+
+#Task 12
+#-------
+
+#Print generated network
+#-----------------------
+
+# NumberOfInitinalNodes = 2
+# testgraph = generator.BarabasiGraph('test1', 20, NumberOfInitinalNodes)
+# graphName = testgraph.GetGraphName()
+# nodeNames = list(testgraph.GetNodes().keys())
+# arcs = testgraph.GetArcs()
+
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
+
+
+
+#Parse generated network
+#-----------------------
+
+# testgraph = generator.BarabasiGraph('test1', 20, 3)
+# graphName = testgraph.GetGraphName()
+# nodeNames = list(testgraph.GetNodes().keys())
+# arcs = testgraph.GetArcs()
+
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+# graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+
+# print(graph.GetGraphName())                                 # Showing print of what's read in from file
+# print(list(graph.GetNodes().keys()))
+# for arc in graph.GetArcs():
+#   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+
+
+#Verify a single connected component
+#-----------------------------------
+
+# def VerifyingSingleConnectedComponent(graph, NumberOfInitinalNodes):
+#   graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)      ##Outputlist containing lists of connected components(objects). If only one List, then they're all connected
+#   if len(graphConnectedList) == 1:
+#     print('netwotk is made of one single connected component')
+#   else:
+#     print('Network is NOT made of one singre connected component')
+
+# NumberOfInitinalNodes = 2
+# testgraph = generator.BarabasiGraph('test1', 20, NumberOfInitinalNodes)
+# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Test graph
@@ -658,14 +702,16 @@ generator = Generator()
 
 #Printed Output
 #--------------
-testgraph = generator.BarabasiGraph('test1', 20, 2)
-graphName = testgraph.GetGraphName()
-nodeNames = list(testgraph.GetNodes().keys())
-arcs = testgraph.GetArcs()
+NumberOfInitinalNodes = 2
+testgraph = generator.BarabasiGraph('test1', 20, NumberOfInitinalNodes)
+# graphName = testgraph.GetGraphName()
+# nodeNames = list(testgraph.GetNodes().keys())
+# arcs = testgraph.GetArcs()
 
-printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
 
 
 # Verify that generated network made of single connected nodes
 #-------------------------------------------------------------
+# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)           #graph and NumberOfInitialNodes defined in printed output for Generator to match
 
