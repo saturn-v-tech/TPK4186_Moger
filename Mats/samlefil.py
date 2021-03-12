@@ -475,7 +475,7 @@ if __name__ == '__main__':
   # Assertions 
   assert Graph.GetGraphName(test) == "testGraph"
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-  print(type(test.GetNodes().values())
+  print(test.GetNodes().values())
 
   # print(test.GetNode('a'))
   # print(test.GetArcs())
@@ -489,20 +489,6 @@ if __name__ == '__main__':
   #Output
   #------
 
-<<<<<<< HEAD
-# testgraph = generator.BarabasiGraph('test1', 30, 6)
-# graphName = testgraph.GetGraphName()
-# nodeNames = list(testgraph.GetNodes().keys())
-# arcs = testgraph.GetArcs()
-
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
-
-
-#Test Parser
-#-----------
-# graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
-# graph = parser.ImportGraph('test.txt')
-=======
   testgraph = generator.BarabasiGraph('test1', 30, 6)
   graphName = testgraph.GetGraphName()
   nodeNames = list(testgraph.GetNodes().keys())
@@ -514,7 +500,6 @@ if __name__ == '__main__':
   ### Task 3: Test Parser ###
   # -------------------------
   graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
->>>>>>> cae921885cec80d57866485f0bfed00beb630f4c
 
   # print(graph.GetGraphName())
   # print(graph.GetNodes())
