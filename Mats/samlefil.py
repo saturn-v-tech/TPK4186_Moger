@@ -442,8 +442,8 @@ generator = Generator()
 # To test the respective task uncomment the part under the marks
 #----------------------------
 
-NumberOfInitinalNodes = 2
-testgraph = generator.BarabasiGraph('test1', 50, NumberOfInitinalNodes)             #Variables (graphName, size, NumberOfInitinalNodes)
+NumberOfInitinalNodes = 3
+testgraph = generator.BarabasiGraph('test1', 40, NumberOfInitinalNodes)             #Variables (graphName, size, NumberOfInitinalNodes)
 graphName = testgraph.GetGraphName()
 nodeNames = list(testgraph.GetNodes().keys())
 arcs = testgraph.GetArcs()
@@ -459,12 +459,12 @@ arcs = testgraph.GetArcs()
 #Parse generated network
 #-----------------------
 
-printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-print(graph.GetGraphName())                                 # Showing print of what's read in from file
-print(list(graph.GetNodes().keys()))
-for arc in graph.GetArcs():
-  print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+# graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+# print(graph.GetGraphName())                                 # Showing print of what's read in from file
+# print(list(graph.GetNodes().keys()))
+# for arc in graph.GetArcs():
+#   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
 
 
 #Verify a single connected component
