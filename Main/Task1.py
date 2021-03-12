@@ -13,18 +13,18 @@ Test these classes by creating a small graph.
 
 class Node:
   def __init__(self, nodeName):
-    self.__nodeName = nodeName
-    self.__arcs = []
+    self.nodeName = nodeName
+    self.arcs = []
     self.visited = False
 
   def GetNodeName(self):
-    return self.__nodeName
+    return self.nodeName
 
   def AddArc(self, arc):
-    self.__arcs.append(arc)
+    self.arcs.append(arc)
 
   def GetArcs(self):
-    return self.__arcs
+    return self.arcs
 
   def GetVisited(self):
     return self.visited
@@ -37,13 +37,13 @@ class Node:
 #-------
 
 class Arc:
-  def __init__(self, node1, node2):
-    self.node1 = node1
-    self.node2 = node2
-    # self.arc = [node1, node2]
+  def __init__(self, src, dest):
+    self.src = src
+    self.dest = dest
+    self.arc = [src, dest]
 
   def GetArc(self):
-    return self.node1, self.node2
+    return self.arc 
 
 
 # A class to encode graphs
@@ -75,11 +75,11 @@ class Graph:
   def GetArcs(self):
     return self.arcs
 
-  def NewArc(self, node1, node2):
-    arc = Arc(node1, node2)
+  def NewArc(self, src, dest):
+    arc = Arc(src, dest)
     self.arcs.append(arc)
-    node1.AddArc(arc)
-    node2.AddArc(arc)
+    src.AddArc(arc)
+    dest.AddArc(arc)
     return arc
 
   def GetNode(self, nodeName):
@@ -106,8 +106,9 @@ if __name__ == '__main__':
     node6 = test.NewNode("n32")
 
     arc1 = test.NewArc(node1, node2)
-    arc2 = test.NewArc(node3, node4)
-    arc3 = test.NewArc(node2, node4)
+    arc2 = test.NewArc(node1, node3)
+    arc3 = test.NewArc(node3, node4)
+    arc4 = test.NewArc(node2, node4)
 
     # Node
 
@@ -116,11 +117,9 @@ if __name__ == '__main__':
 
     # Arc
 
-    print(test.GetArcs()) 
+    print(test.GetArcs())
 
     print('okay')
-
-    # print(node1.GetArcs())
 
     # node2 = Node('n12')
     # arcs = test.GetArcs()

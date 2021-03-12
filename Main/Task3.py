@@ -10,7 +10,6 @@ from Task1 import *
 import re
 
 
-
 # 2 Class Parser
 #---------------
 
@@ -35,7 +34,7 @@ class Parser:
     for line in file:
       newline = line.split()
       if firstline:
-        graphName = newline[1]
+        graphName = newline[0] # TODO skal denne være 0 eller 1? 
         graph = Graph(graphName)
         firstline = False
       elif re.match('nodes', line) != None:
@@ -58,19 +57,21 @@ class Parser:
     return graph
 
 
+### TEST SECTION ### 
+
+if __name__ == '__main__':
+
+    parser = Parser()
+    graph = parser.ImportGraph('ParserTest.txt')
+    test = parser.ReadGraph('ParserTest.txt')
+
+    # graph.DelNode('n11')
+    # print(graph.GetGraphName())
+    # print(graph.GetNodes())
+    # print(graph.GetArcs())
 
 
-# Test
-parser = Parser()
-graph = parser.ImportGraph('ParserTest.txt')
-
-# graph.DelNode('n11')
-# print(graph.GetGraphName())
-# print(graph.GetNodes())
-# print(graph.GetArcs())
-
-
-# a = graph.GetNode('n11')
-# b = a.GetArcs()
-# for arc in b:
-#   print(arc)
+    # a = graph.GetNode('n11')
+    # b = a.GetArcs()
+    # for arc in b:
+    #   print(arc)
