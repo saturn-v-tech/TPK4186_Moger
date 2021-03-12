@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 import random
 
 # Task 1
-# --------
+# -------------
 
 # 2 Class Node
-# -------
+# -------------
 
 class Node:
   def __init__(self, nodeName):
@@ -55,7 +55,7 @@ class Node:
 
 
 # 2 Class Arcs
-# -------
+# -------------
 
 class Arc:
   def __init__(self, node1, node2):
@@ -68,7 +68,7 @@ class Arc:
 
 
 # 3 Class Graph
-# -------
+# -------------
 
 class Graph:
   def __init__(self, graphName):
@@ -121,10 +121,10 @@ class Graph:
 
 
 # Task 2:
-# ----------
+# ----------------
 
 # 4 Class Printer
-# -----------
+# ----------------
 
 class Printer:
 
@@ -579,8 +579,8 @@ if __name__ == '__main__':
   #   ['n31', 'n32']]
   # printer.PrintGraph('Grid32', nodes, arcs, 'test.txt')  
 
-  #Output
-  #------
+  # Output
+  # ------
 
   # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
 
