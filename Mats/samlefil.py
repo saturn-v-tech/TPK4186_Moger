@@ -237,7 +237,7 @@ class Parser:
 
 class Calculator:
 
-  def CalculateDegreeOfGraph(self, inputGraph):
+  def CalculateDegreeOfNodes(self, inputGraph):
     nodeDegree = dict()
     arcs = inputGraph.GetArcs()
     for arc in arcs:                #arc is an object that can be accessed with either .arc which gieve [node1, node2] og .node1/.node2 that gives the individual node
