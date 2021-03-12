@@ -475,12 +475,12 @@ printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        
 #Parse generated network
 #-----------------------
 
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-# graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-# print(graph.GetGraphName())                                 # Showing print of what's read in from file
-# print(list(graph.GetNodes().keys()))
-# for arc in graph.GetArcs():
-#   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+print(graph.GetGraphName())                                 # Showing print of what's read in from file
+print(list(graph.GetNodes().keys()))
+for arc in graph.GetArcs():
+  print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
 
 
 #Verify a single connected component
