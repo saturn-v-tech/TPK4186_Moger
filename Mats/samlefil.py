@@ -467,13 +467,66 @@ generator = Generator()
 # To test the respective task uncomment the part under the marks
 #----------------------------
 
-NumberOfInitinalNodes = 2
-testgraph = generator.BarabasiGraph('test1', 50, NumberOfInitinalNodes)             #Variables (graphName, size, NumberOfInitinalNodes)
+NumberOfInitinalNodes = 3
+testgraph = generator.BarabasiGraph('test1', 40, NumberOfInitinalNodes)             #Variables (graphName, size, NumberOfInitinalNodes)
 graphName = testgraph.GetGraphName()
 nodeNames = list(testgraph.GetNodes().keys())
 arcs = testgraph.GetArcs()
 
 
+<<<<<<< HEAD
+#Print generated network
+#-----------------------
+
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
+
+
+
+#Parse generated network
+#-----------------------
+
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+# graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+# print(graph.GetGraphName())                                 # Showing print of what's read in from file
+# print(list(graph.GetNodes().keys()))
+# for arc in graph.GetArcs():
+#   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+
+
+#Verify a single connected component
+#-----------------------------------
+
+# def VerifyingSingleConnectedComponent(graph, NumberOfInitinalNodes):
+#   graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)      ##Outputlist containing lists of connected components(objects). If only one List, then they're all connected
+#   if len(graphConnectedList) == 1:
+#     print('netwotk is made of one single connected component')
+#   else:
+#     print('Network is NOT made of one singre connected component')
+
+
+# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)       #Prints if the network is connected or not
+
+
+#Extract and plot distribution of degree
+#---------------------------------------
+
+# calculator.PlotNodeDegreeDistritbution(testgraph)          #Makes plot and saves as pdf
+# degrees = calculator.CalculateDegreeOfNodes(testgraph)
+# print(degrees)                                                #Print of the variables (nodename:degree of node)
+
+
+#Calculate diameter of netwotk
+#-----------------------------
+
+# diameter = calculator.CalculateDiameter(testgraph)            #Calculates diameter
+# graphName = testgraph.GetGraphName()                            #Gets Name of graph
+# print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variables
+
+
+
+
+=======
+>>>>>>> 532ddc0e0efae025d076603909396d8de3ffc772
 ### TEST SECTION ### 
 
 if __name__ == '__main__':
