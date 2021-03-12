@@ -440,10 +440,6 @@ class Generator:
         graph.DeleteNode(newNode.nodeName)
     return graph
 
-# Task 12 
-# --------
-
-<<<<<<< HEAD
 
 
 # Defining classes for use
@@ -516,6 +512,30 @@ arcs = testgraph.GetArcs()
 # diameter = calculator.CalculateDiameter(testgraph)            #Calculates diameter
 # graphName = testgraph.GetGraphName()                            #Gets Name of graph
 # print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
