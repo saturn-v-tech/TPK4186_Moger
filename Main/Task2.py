@@ -1,11 +1,9 @@
 import sys
 
-
 #2 Printer
 #---------
 
 class Printer:
-  
   
   def PrintGraph(self, graphName, nodes, arcs, file):
     file.write('graph' + '\t' + str(graphName))
@@ -16,7 +14,7 @@ class Printer:
     file.write('\n')
     file.write('end')
   
-  def PrintNodes(self, nodes, file):           #nodes are assuned format (n11, n21)correct input. sorts if not sorted
+  def PrintNodes(self, nodes, file):           #nodes are assuned format (n11, n21) correct input. sorts if not sorted
     nodes = sorted(nodes)
     file.write('nodes \n')
     nodeindex = 1
@@ -51,23 +49,24 @@ class Printer:
       else:
         file.write(',')
 
+### TEST SECTION ### 
+
+if __name__ == '__main__':
+
+  # Initialzing
+
+  printer = Printer()
+  nodes = ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+  arcs = {1:[['n11', 'n12'], ['n11', 'n21'], ['n12', 'n22']], 2:[['n21', 'n22'], ['n21', 'n31'], ['n22', 'n32']], 3:[['n31', 'n32']]}    #number in dictionary is the line it belongs to
+
+  # printer.PrintNodes(nodes, sys.stdout)                      #Individual test Nodes
+  # printer.PrintArcs(arcs, sys.stdout)                        #Individual test Arcs
+  printer.PrintGraph('Grid32', nodes, arcs, sys.stdout)          #Test PrintGraph
 
 
+  # arc = arcs[1][1]
+  # print(arc)
+  # print(type(32))
 
 
-# Test
-printer = Printer()
-nodes = ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-arcs = {1:[['n11', 'n12'], ['n11', 'n21'], ['n12', 'n22']], 2:[['n21', 'n22'], ['n21', 'n31'], ['n22', 'n32']], 3:[['n31', 'n32']]}    #number in dictionary is the line it belongs to
-
-# printer.PrintNodes(nodes, sys.stdout)                      #Individual test Nodes
-# printer.PrintArcs(arcs, sys.stdout)                        #Individual test Arcs
-printer.PrintGraph('Grid32', nodes,arcs, sys.stdout)          #Test PrintGraph
-
-
-# arc = arcs[1][1]
-# print(arc)
-# print(type(32))
-
-
-# print(sorted(nodes1))
+  # print(sorted(nodes1))
