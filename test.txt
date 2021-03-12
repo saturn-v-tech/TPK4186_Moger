@@ -1,0 +1,7 @@
+graph	Grid32
+nodes 
+  n11, n12,
+  n21, n22,
+  n31, n32;
+arcs
+  
