@@ -1,5 +1,6 @@
-#Assignment 2
+# Assignment 2
 
+# Mats Emil Mossefin and Fredrik Moger
 
 # 1 Imported packages
 # --------------------
