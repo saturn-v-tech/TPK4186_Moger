@@ -220,7 +220,7 @@ class Parser:
       elif re.match('end', line) != None:
         break 
       elif state == 1:
-        nodes = re.findall(r"[a-zA-Z0-9_][0-9]*", line)
+        nodes = re.findall(r"[a-zA-Z0-9_]*", line)
         for node in nodes:
           graph.NewNode(node)
       elif state == 2:
