@@ -120,8 +120,11 @@ class Graph:
     return self.degree
 
 
+# Task 2: 
+# ---------------
+
 # 4 Class Printer
-# ---------
+# ---------------
 
 class Printer:
 
@@ -179,8 +182,11 @@ class Printer:
       elif len(arcs) == lenArcs:           #Last arc gets a ; to end
         file.write(';')
 
+# Task 3: 
+# -----------------------
+
 # 5 Class Parser
-#---------------
+# -----------------------
 
 class Parser:
 
@@ -225,8 +231,11 @@ class Parser:
     return graph
 
 
+# Task 4: 
+# ------------------
+
 # 6 Class Calculator
-#-------------------
+# -------------------
 
 class Calculator:
 
@@ -248,6 +257,7 @@ class Calculator:
     return nodeDegree                             #dictionary containing nodename and degree of node. outputprint is shown under tests
 
 
+
   def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
     nodeNames = list(nodeDegree.keys())
     for node in nodeNames:
@@ -262,8 +272,8 @@ class Calculator:
     degree = len(arcs)*2
     inputGraph.SetDegree(degree)  
 
-
-
+  # Task 5
+  # --------
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
@@ -281,7 +291,8 @@ class Calculator:
     plt.savefig('NodeDegreeDristribution.pdf')
     plt.show()
 
-
+  # Task 6
+  # -------
 
   def ExtractConnectedComponentOfNode(self, node):
     nodeConnectedList = []                                               #list of connected components C
@@ -302,7 +313,8 @@ class Calculator:
               candidateList.append(node1)
     return nodeConnectedList                                                 #Output is a list of nodes(objects) that are connected. prit of names are shown under test (output)
 
-
+  # Task 7 
+  # --------
 
   def ExtractConnectedComponentOfGraph(self, graph):
     nodesDict = graph.GetNodes()
@@ -316,7 +328,8 @@ class Calculator:
         graphConnectedList.append(nodeConnectedList)
     return graphConnectedList                                              #Outputlist containing lists of connected components(objects). To see the output with names of nodes, run the for loop mentioned under tests
 
-
+  # Task 7
+  # --------
 
   def CalculateDistributionOfConnectedComponents(self, graph):
     lengthConnectedComponents = dict()                                            #Dictionary with {lengh(number of connected components) : number of connected list with respective length}
@@ -333,6 +346,9 @@ class Calculator:
     return representedLengthComponents, numberOfLengthComponents
 
 
+  # Task 8
+  # ---------
+
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
     representedLengthComponents, numberOfLengthComponents = self.CalculateDistributionOfConnectedComponents(graph)
     plt.bar(representedLengthComponents, numberOfLengthComponents, width = 2)
@@ -344,6 +360,8 @@ class Calculator:
     plt.show()
 
 
+  # Task 9
+  # --------
 
   def CalculateDistance(self, sourceNode, graph):                         #May not need the graph input as long as node is already made as a part of a graph
     nodesDict = graph.GetNodes()
@@ -371,6 +389,9 @@ class Calculator:
             candidateList.append(node1)
     return treatedNodes                                            #The treated nodes contains information about distance. By runnig the for loop in the test you may see the output
 
+
+  # Task 10
+  # ---------
 
   def CalculateDiameter(self, graph):
     nodes = graph.GetNodes().values()
@@ -425,7 +446,6 @@ class Generator:
       if len(newNode.GetArcs()) == 0:
         graph.DeleteNode(newNode.nodeName)
     return graph
-
 
 
 
