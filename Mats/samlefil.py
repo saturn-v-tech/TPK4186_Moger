@@ -207,9 +207,9 @@ class Parser:
   def ReadGraph(self, file):
     state = 0
     firstline = True
-    
     for line in file:
       newline = line.split()
+      # print(newline)
       if firstline:
         graphName = newline[1]
         graph = Graph(graphName)
@@ -225,9 +225,8 @@ class Parser:
         for node in nodes:
           graph.NewNode(node)
       elif state == 2:
-        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
+        arcs = re.findall(r"([a-zA-Z0-9_]*)\s* <-> \s*([a-zA-Z0-9_]*)", line)       #Makes a list with the arcs sorert in a list of 2 nodes
         for arc in arcs:
-          arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
           node1 = graph.GetNode(arc[0])
           node2 = graph.GetNode(arc[1])
           graph.NewArc(node1, node2)
@@ -490,6 +489,20 @@ if __name__ == '__main__':
   #Output
   #------
 
+<<<<<<< HEAD
+# testgraph = generator.BarabasiGraph('test1', 30, 6)
+# graphName = testgraph.GetGraphName()
+# nodeNames = list(testgraph.GetNodes().keys())
+# arcs = testgraph.GetArcs()
+
+# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+
+
+#Test Parser
+#-----------
+# graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+# graph = parser.ImportGraph('test.txt')
+=======
   testgraph = generator.BarabasiGraph('test1', 30, 6)
   graphName = testgraph.GetGraphName()
   nodeNames = list(testgraph.GetNodes().keys())
@@ -501,6 +514,7 @@ if __name__ == '__main__':
   ### Task 3: Test Parser ###
   # -------------------------
   graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+>>>>>>> cae921885cec80d57866485f0bfed00beb630f4c
 
   # print(graph.GetGraphName())
   # print(graph.GetNodes())
