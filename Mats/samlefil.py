@@ -426,6 +426,17 @@ parser = Parser()
 calculator = Calculator()               #Nececcary for all testing. leave uncommented
 generator = Generator()
 
+<<<<<<< HEAD
+=======
+  # Defining classes for use
+  # Nececcary for all testing --> leave uncommented
+  #-------------------------
+
+  printer = Printer()
+  parser = Parser()
+  calculator = Calculator()
+  generator = Generator()
+>>>>>>> a11dc21b470280304678ddc7e31fa8ec44fb64bc
 
 # Test graph
 #-----------
@@ -442,6 +453,7 @@ generator = Generator()
 # arc2 = test.NewArc(node3, node4)
 # arc3 = test.NewArc(node2, node4)
 
+<<<<<<< HEAD
 
 # print(Graph.GetGraphName(test))
 # print(test.GetNodes())
@@ -453,12 +465,40 @@ generator = Generator()
 
 #Test Printer
 #------------
+=======
+  # Defining a Graph object
+  test = Graph("testGraph") 
+  
+  # Adding new nodes
+  node1 = test.NewNode("n11")
+  node2 = test.NewNode("n12")
+  node3 = test.NewNode("n21")
+  node4 = test.NewNode("n22")
+  node5 = test.NewNode("n31")
+  node6 = test.NewNode("n32")
+
+  # Adding a new arcs using nodes created above
+  arc1 = test.NewArc(node1, node2)
+  arc2 = test.NewArc(node3, node4)
+  arc3 = test.NewArc(node2, node4)
+
+  # Assertions 
+  assert Graph.GetGraphName(test) == "testGraph"
+  assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+  print(test.GetNodes().values())
+
+  # print(test.GetNode('a'))
+  # print(test.GetArcs())
+  # print(test.GetNodes())
+  # print(test.GetArcs())
+>>>>>>> a11dc21b470280304678ddc7e31fa8ec44fb64bc
 
 
 
 #Output
 #------
 
+<<<<<<< HEAD
 # testgraph = generator.BarabasiGraph('test1', 30, 6)
 # graphName = testgraph.GetGraphName()
 # nodeNames = list(testgraph.GetNodes().keys())
@@ -471,12 +511,24 @@ generator = Generator()
 #-----------
 # graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
 # graph = parser.ImportGraph('test.txt')
+=======
+  testgraph = generator.BarabasiGraph('test1', 30, 6)
+  graphName = testgraph.GetGraphName()
+  nodeNames = list(testgraph.GetNodes().keys())
+  arcs = testgraph.GetArcs()
+>>>>>>> a11dc21b470280304678ddc7e31fa8ec44fb64bc
 
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
 # print(graph.GetArcs())
 
 
+<<<<<<< HEAD
+=======
+  ### Task 3: Test Parser ###
+  # -------------------------
+  graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+>>>>>>> a11dc21b470280304678ddc7e31fa8ec44fb64bc
 
 # Test of CalculateDegreeOfNodes
 #-------------------------------
