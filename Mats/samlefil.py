@@ -420,6 +420,11 @@ class Generator:
 
 
 
+# def VerifyingSingleConnectedComponent(graph):
+  
+
+
+
 
 
 
@@ -446,16 +451,8 @@ class Generator:
 
 
 # Defining classes for use
+# Nececcary for all testing --> leave uncommented
 #-------------------------
-printer = Printer()
-parser = Parser()
-calculator = Calculator()               #Nececcary for all testing. leave uncommented
-generator = Generator()
-
-
-  # Defining classes for use
-  # Nececcary for all testing --> leave uncommented
-  #-------------------------
 
 printer = Printer()
 parser = Parser()
@@ -492,9 +489,13 @@ generator = Generator()
 #------------
 
 # Defining a Graph object
+#------------------------
+
 test = Graph("testGraph") 
 
 # Adding new nodes
+#-----------------
+
 node1 = test.NewNode("n11")
 node2 = test.NewNode("n12")
 node3 = test.NewNode("n21")
@@ -503,14 +504,16 @@ node5 = test.NewNode("n31")
 node6 = test.NewNode("n32")
 
 # Adding a new arcs using nodes created above
-arc1 = test.NewArc(node1, node2)
-arc2 = test.NewArc(node3, node4)
-arc3 = test.NewArc(node2, node4)
+#--------------------------------------------
+
+# arc1 = test.NewArc(node1, node2)
+# arc2 = test.NewArc(node3, node4)
+# arc3 = test.NewArc(node2, node4)
 
 # Assertions 
-assert Graph.GetGraphName(test) == "testGraph"
-assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-print(test.GetNodes().values())
+# assert Graph.GetGraphName(test) == "testGraph"
+# assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+# print(test.GetNodes().values())
 
 # print(test.GetNode('a'))
 # print(test.GetArcs())
@@ -537,10 +540,10 @@ print(test.GetNodes().values())
 # graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
 # graph = parser.ImportGraph('test.txt')
 
-testgraph = generator.BarabasiGraph('test1', 30, 6)
-graphName = testgraph.GetGraphName()
-nodeNames = list(testgraph.GetNodes().keys())
-arcs = testgraph.GetArcs()
+# testgraph = generator.BarabasiGraph('test1', 30, 6)
+# graphName = testgraph.GetGraphName()
+# nodeNames = list(testgraph.GetNodes().keys())
+# arcs = testgraph.GetArcs()
 
 # print(graph.GetGraphName())
 # print(graph.GetNodes())
@@ -649,6 +652,20 @@ generator = Generator()
 
 # Test of Generator
 # -----------------
-# testgraph = generator.BarabasiGraph('test1', 20, 2)
 
+
+
+
+#Printed Output
+#--------------
+testgraph = generator.BarabasiGraph('test1', 20, 2)
+graphName = testgraph.GetGraphName()
+nodeNames = list(testgraph.GetNodes().keys())
+arcs = testgraph.GetArcs()
+
+printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+
+
+# Verify that generated network made of single connected nodes
+#-------------------------------------------------------------
 
