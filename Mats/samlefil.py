@@ -417,66 +417,46 @@ class Generator:
         graph.DeleteNode(newNode.nodeName)
     return graph
 
-
-
-
 # def VerifyingSingleConnectedComponent(graph):
-  
 
 
 
+### TEST SECTION ### 
+
+if __name__ == '__main__':
+
+  # Defining classes for use
+  # Nececcary for all testing --> leave uncommented
+  #-------------------------
+
+  printer = Printer()
+  parser = Parser()
+  calculator = Calculator()
+  generator = Generator()
 
 
+  # Test graph
+  #-----------
 
+  # Defining graph object
+  test = Graph("testGraph")
 
+  # Adding a new nodes
+  node1 = test.NewNode("n11")           
+  node2 = test.NewNode("n12")
+  node3 = test.NewNode("n21")
+  node4 = test.NewNode("n22")
+  node5 = test.NewNode("n31")
+  node6 = test.NewNode("n32")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Defining classes for use
-# Nececcary for all testing --> leave uncommented
-#-------------------------
-
-printer = Printer()
-parser = Parser()
-calculator = Calculator()
-generator = Generator()
-
-
-# Test graph
-#-----------
-
-# test = Graph("testGraph")           #Defining graphobject as test
-# node1 = test.NewNode("n11")           #Adding a new node with name "n11"
-# node2 = test.NewNode("n12")
-# node3 = test.NewNode("n21")
-# node4 = test.NewNode("n22")
-# node5 = test.NewNode("n31")
-# node6 = test.NewNode("n32")
-
-# arc1 = test.NewArc(node1, node2)    #Adding a new arc consisting of node1 and node 2 created above
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
+  # Adding a new arcs consisting of nodes created above 
+  arc1 = test.NewArc(node1, node2)  
+  arc2 = test.NewArc(node3, node4)
+  arc3 = test.NewArc(node2, node4)
 
   # Assertions 
-  assert Graph.GetGraphName(test) == "testGraph"
+  print(Graph.GetGraphName(test))
+
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
   for i in test.GetNodes().values():
     assert isinstance(i, object)
@@ -486,198 +466,198 @@ generator = Generator()
   # print(test.GetNodes())
   # print(test.GetArcs())
 
-  print("Task 1: okay")
+  # print("Task 1: okay")
 
 
-# print(Graph.GetGraphName(test))
-# print(test.GetNodes())
-# print(test.GetNode('a'))
-# print(test.GetArcs())
-# print(test.GetNodes())
-# print(test.GetArcs())
+  # print(Graph.GetGraphName(test))
+  # print(test.GetNodes())
+  # print(test.GetNode('a'))
+  # print(test.GetArcs())
+  # print(test.GetNodes())
+  # print(test.GetArcs())
 
 
-#Test Printer
-#------------
+  #Test Printer
+  #------------
 
-# Defining a Graph object
-#------------------------
+  # Defining a Graph object
+  #------------------------
 
-test = Graph("testGraph") 
+  test = Graph("testGraph") 
 
-# Adding new nodes
-#-----------------
+  # Adding new nodes
+  #-----------------
 
-node1 = test.NewNode("n11")
-node2 = test.NewNode("n12")
-node3 = test.NewNode("n21")
-node4 = test.NewNode("n22")
-node5 = test.NewNode("n31")
-node6 = test.NewNode("n32")
+  node1 = test.NewNode("n11")
+  node2 = test.NewNode("n12")
+  node3 = test.NewNode("n21")
+  node4 = test.NewNode("n22")
+  node5 = test.NewNode("n31")
+  node6 = test.NewNode("n32")
 
-# Adding a new arcs using nodes created above
-#--------------------------------------------
+  # Adding a new arcs using nodes created above
+  #--------------------------------------------
 
-# arc1 = test.NewArc(node1, node2)
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
+  # arc1 = test.NewArc(node1, node2)
+  # arc2 = test.NewArc(node3, node4)
+  # arc3 = test.NewArc(node2, node4)
 
-# Assertions 
-# assert Graph.GetGraphName(test) == "testGraph"
-# assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-# print(test.GetNodes().values())
+  # Assertions 
+  # assert Graph.GetGraphName(test) == "testGraph"
+  # assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+  # print(test.GetNodes().values())
 
-# print(test.GetNode('a'))
-# print(test.GetArcs())
-# print(test.GetNodes())
-# print(test.GetArcs())
+  # print(test.GetNode('a'))
+  # print(test.GetArcs())
+  # print(test.GetNodes())
+  # print(test.GetArcs())
 
 
 
 
-#Output
-#------
+  #Output
+  #------
 
 
-# testgraph = generator.BarabasiGraph('test1', 30, 6)
-# graphName = testgraph.GetGraphName()
-# nodeNames = list(testgraph.GetNodes().keys())
-# arcs = testgraph.GetArcs()
+  # testgraph = generator.BarabasiGraph('test1', 30, 6)
+  # graphName = testgraph.GetGraphName()
+  # nodeNames = list(testgraph.GetNodes().keys())
+  # arcs = testgraph.GetArcs()
 
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
+  # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
 
 
-#Test Parser
-#-----------
-# graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
-# graph = parser.ImportGraph('test.txt')
+  #Test Parser
+  #-----------
+  # graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+  # graph = parser.ImportGraph('test.txt')
 
-# testgraph = generator.BarabasiGraph('test1', 30, 6)
-# graphName = testgraph.GetGraphName()
-# nodeNames = list(testgraph.GetNodes().keys())
-# arcs = testgraph.GetArcs()
+  # testgraph = generator.BarabasiGraph('test1', 30, 6)
+  # graphName = testgraph.GetGraphName()
+  # nodeNames = list(testgraph.GetNodes().keys())
+  # arcs = testgraph.GetArcs()
 
-# print(graph.GetGraphName())
-# print(graph.GetNodes())
-# print(graph.GetArcs())
+  # print(graph.GetGraphName())
+  # print(graph.GetNodes())
+  # print(graph.GetArcs())
 
 
 
-### Task 3: Test Parser ###
-# -------------------------
-graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+  ### Task 3: Test Parser ###
+  # -------------------------
+  graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
 
-# Test of CalculateDegreeOfNodes
-#-------------------------------
+  # Test of CalculateDegreeOfNodes
+  #-------------------------------
 
 
 
 
-#Output
-#------
-# degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
-# print(degreeOfNodes)
-# node = graph.GetNode('n12')
-# print(node.GetDegree())
+  #Output
+  #------
+  # degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
+  # print(degreeOfNodes)
+  # node = graph.GetNode('n12')
+  # print(node.GetDegree())
 
 
-# Test of PlotNodeDegreeDistritbution
-#-------------------------------
+  # Test of PlotNodeDegreeDistritbution
+  #-------------------------------
 
 
 
 
-#Output
-#------
-# calculator.PlotNodeDegreeDistritbution(graph)
+  #Output
+  #------
+  # calculator.PlotNodeDegreeDistritbution(graph)
 
 
-# Test of ExtractConnectedComponentOfNode
-#----------------------------------------
+  # Test of ExtractConnectedComponentOfNode
+  #----------------------------------------
 
 
 
 
-#Output
-#------
-# node = graph.GetNode('n12')
-# connectedList = calculator.ExtractConnectedComponentOfNode(node)
-# for node in connectedList:
-#   print(node.GetNodeName())
+  #Output
+  #------
+  # node = graph.GetNode('n12')
+  # connectedList = calculator.ExtractConnectedComponentOfNode(node)
+  # for node in connectedList:
+  #   print(node.GetNodeName())
 
 
-# Test of ExtractConnectedComponentOfGraph
-#-----------------------------------------
+  # Test of ExtractConnectedComponentOfGraph
+  #-----------------------------------------
 
 
 
-#Output
-#------
-# graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
-# for nodeConnectedList in graphConnectedList:
-#   for node in nodeConnectedList:
-#     print(node.GetNodeName())
-#   print('\n')
+  #Output
+  #------
+  # graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
+  # for nodeConnectedList in graphConnectedList:
+  #   for node in nodeConnectedList:
+  #     print(node.GetNodeName())
+  #   print('\n')
 
 
-# Test of PlotSizeDistributionOfGraph
-#------------------------------------
+  # Test of PlotSizeDistributionOfGraph
+  #------------------------------------
 
 
 
 
-#Output
-#------
-# calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
+  #Output
+  #------
+  # calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
 
 
 
-# Test of CalculateDistance
-# --------------------------
+  # Test of CalculateDistance
+  # --------------------------
 
 
-#Output
-#------
-# node = graph.GetNode('n11')
-# NodesWithDistance = calculator.CalculateDistance(node, graph)
-# for node in NodesWithDistance:
-#   print(node.GetNodeName(), node.GetDistance())
+  #Output
+  #------
+  # node = graph.GetNode('n11')
+  # NodesWithDistance = calculator.CalculateDistance(node, graph)
+  # for node in NodesWithDistance:
+  #   print(node.GetNodeName(), node.GetDistance())
 
 
 
 
-# Test of CalculateDiameter
-# -------------------------
+  # Test of CalculateDiameter
+  # -------------------------
 
 
 
-#Output
-#------
-# diameter = calculator.CalculateDiameter(graph)
-# print(diameter)
+  #Output
+  #------
+  # diameter = calculator.CalculateDiameter(graph)
+  # print(diameter)
 
 
 
-# Generator
-# ---------
-generator = Generator()
+  # Generator
+  # ---------
+  generator = Generator()
 
-# Test of Generator
-# -----------------
+  # Test of Generator
+  # -----------------
 
 
 
 
-#Printed Output
-#--------------
-testgraph = generator.BarabasiGraph('test1', 20, 2)
-graphName = testgraph.GetGraphName()
-nodeNames = list(testgraph.GetNodes().keys())
-arcs = testgraph.GetArcs()
+  #Printed Output
+  #--------------
+  testgraph = generator.BarabasiGraph('test1', 20, 2)
+  graphName = testgraph.GetGraphName()
+  nodeNames = list(testgraph.GetNodes().keys())
+  arcs = testgraph.GetArcs()
 
-printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+  printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
 
 
-# Verify that generated network made of single connected nodes
-#-------------------------------------------------------------
+  # Verify that generated network made of single connected nodes
+  #-------------------------------------------------------------
 
