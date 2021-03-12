@@ -1,19 +1,19 @@
-#Assignment 2
+# Assignment 2
 
 
 # 1 Imported packages
-#--------------------
+# --------------------
 
 import sys
 import re
 import matplotlib.pyplot as plt
 import random
 
-#Task 1
-#-------------
+# Task 1
+# --------
 
-#2 Node
-#-------
+# 2 Class Node
+# -------
 
 class Node:
   def __init__(self, nodeName):
@@ -54,8 +54,8 @@ class Node:
     return self.degree
 
 
-# 2 Arcs
-#-------
+# 2 Class Arcs
+# -------
 
 class Arc:
   def __init__(self, node1, node2):
@@ -67,8 +67,8 @@ class Arc:
     return self.node1, self.node2
 
 
-#3 Graph
-#------
+# 3 Class Graph
+# -------
 
 class Graph:
   def __init__(self, graphName):
@@ -120,8 +120,11 @@ class Graph:
     return self.degree
 
 
-#5 Printer
-#---------
+# Task 2:
+# ----------
+
+# 4 Class Printer
+# -----------
 
 class Printer:
 
@@ -179,8 +182,11 @@ class Printer:
       elif len(arcs) == lenArcs:           #Last arc gets a ; to end
         file.write(';')
 
-# 6 Class Parser
-#---------------
+# Task 3
+# --------------
+
+# 5 Class Parser
+# ---------------
 
 class Parser:
 
@@ -224,9 +230,11 @@ class Parser:
           graph.NewArc(node1, node2)
     return graph
 
+# Task 4
+# ------------------
 
-# 7 Class Calculator
-#-------------------
+# 6 Class Calculator
+# ------------------
 
 class Calculator:
 
@@ -256,14 +264,13 @@ class Calculator:
       node.SetDegree(degree)
 
 
-
   def SetDegreeOfGraph(self, inputGraph):
     arcs = inputGraph.GetArcs()
     degree = len(arcs)*2
     inputGraph.SetDegree(degree)  
 
-
-
+  # Task 5
+  # -------
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
     nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
@@ -281,7 +288,8 @@ class Calculator:
     plt.savefig('NodeDegreeDristribution.pdf')
     plt.show()
 
-
+  # Task 6
+  # -------
 
   def ExtractConnectedComponentOfNode(self, node):
     nodeConnectedList = []                                               #list of connected components C
@@ -302,7 +310,8 @@ class Calculator:
               candidateList.append(node1)
     return nodeConnectedList                                                 #Output is a list of nodes(objects) that are connected. prit of names are shown under test (output)
 
-
+  # Task 7 
+  # -------
 
   def ExtractConnectedComponentOfGraph(self, graph):
     nodesDict = graph.GetNodes()
@@ -316,7 +325,8 @@ class Calculator:
         graphConnectedList.append(nodeConnectedList)
     return graphConnectedList                                              #Outputlist containing lists of connected components(objects). To see the output with names of nodes, run the for loop mentioned under tests
 
-
+  # Task 7 
+  # -------
 
   def CalculateDistributionOfConnectedComponents(self, graph):
     lengthConnectedComponents = dict()                                            #Dictionary with {lengh(number of connected components) : number of connected list with respective length}
@@ -332,6 +342,8 @@ class Calculator:
     numberOfLengthComponents = list(lengthConnectedComponents.values())
     return representedLengthComponents, numberOfLengthComponents
 
+  # Task 8
+  # -------
 
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
     representedLengthComponents, numberOfLengthComponents = self.CalculateDistributionOfConnectedComponents(graph)
@@ -343,7 +355,8 @@ class Calculator:
     # plt.savefig('connectedComponentDistributionOfGraph.pdf')
     plt.show()
 
-
+  # Task 9 
+  # -------
 
   def CalculateDistance(self, sourceNode, graph):                         #May not need the graph input as long as node is already made as a part of a graph
     nodesDict = graph.GetNodes()
@@ -371,6 +384,8 @@ class Calculator:
             candidateList.append(node1)
     return treatedNodes                                            #The treated nodes contains information about distance. By runnig the for loop in the test you may see the output
 
+  # Task 10 
+  # -------
 
   def CalculateDiameter(self, graph):
     nodes = graph.GetNodes().values()
@@ -387,7 +402,11 @@ class Calculator:
         diameter = maxDistance
     return diameter                                                #Output a number. print shown in tests
 
+# Task 11 
+# ----------------
 
+# 7 Class Generator 
+# -----------------
 
 class Generator:
 
@@ -417,6 +436,9 @@ class Generator:
         graph.DeleteNode(newNode.nodeName)
     return graph
 
+# Task 12 
+# --------
+
 # def VerifyingSingleConnectedComponent(graph):
 
 
@@ -434,9 +456,8 @@ if __name__ == '__main__':
   calculator = Calculator()
   generator = Generator()
 
-
-  # Test graph
-  #-----------
+  ### Task 1: Test graph ###
+  # ------------------------
 
   # Defining graph object
   test = Graph("testGraph")
@@ -455,30 +476,22 @@ if __name__ == '__main__':
   arc3 = test.NewArc(node2, node4)
 
   # Assertions 
-  print(Graph.GetGraphName(test))
+  assert Graph.GetGraphName(test) == "testGraph"
 
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+
   for i in test.GetNodes().values():
     assert isinstance(i, object)
 
   assert test.GetNode('a') == None # Node 'a' doesn't exist, should therefore return None
-  print(test.GetArcs()[1])
-  # print(test.GetNodes())
-  # print(test.GetArcs())
 
-  # print("Task 1: okay")
+  for i in test.GetArcs():
+    assert isinstance(i, object)
 
+  print("Task 1: okay")
 
-  # print(Graph.GetGraphName(test))
-  # print(test.GetNodes())
-  # print(test.GetNode('a'))
-  # print(test.GetArcs())
-  # print(test.GetNodes())
-  # print(test.GetArcs())
-
-
-  #Test Printer
-  #------------
+  ### Task 2: Test Printer ###
+  # --------------------------
 
   # Defining a Graph object
   #------------------------
