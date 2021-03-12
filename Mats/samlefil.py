@@ -445,31 +445,39 @@ class Generator:
 if __name__ == '__main__':
 
   # Defining classes for use
+  # Nececcary for all testing --> leave uncommented
   #-------------------------
+
   printer = Printer()
   parser = Parser()
-  calculator = Calculator()               #Nececcary for all testing. leave uncommented
+  calculator = Calculator()
   generator = Generator()
 
 
   ### Task 1: Test graph ###
   # ------------------------
 
-  # test = Graph("testGraph")           #Defining graphobject as test
-  # node1 = test.NewNode("n11")           #Adding a new node with name "n11"
-  # node2 = test.NewNode("n12")
-  # node3 = test.NewNode("n21")
-  # node4 = test.NewNode("n22")
-  # node5 = test.NewNode("n31")
-  # node6 = test.NewNode("n32")
+  # Defining a Graph object
+  test = Graph("testGraph") 
+  
+  # Adding new nodes
+  node1 = test.NewNode("n11")
+  node2 = test.NewNode("n12")
+  node3 = test.NewNode("n21")
+  node4 = test.NewNode("n22")
+  node5 = test.NewNode("n31")
+  node6 = test.NewNode("n32")
 
-  # arc1 = test.NewArc(node1, node2)    #Adding a new arc consisting of node1 and node 2 created above
-  # arc2 = test.NewArc(node3, node4)
-  # arc3 = test.NewArc(node2, node4)
+  # Adding a new arcs using nodes created above
+  arc1 = test.NewArc(node1, node2)
+  arc2 = test.NewArc(node3, node4)
+  arc3 = test.NewArc(node2, node4)
 
+  # Assertions 
+  assert Graph.GetGraphName(test) == "testGraph"
+  assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
+  print(type(test.GetNodes().values())
 
-  # print(Graph.GetGraphName(test))
-  # print(test.GetNodes())
   # print(test.GetNode('a'))
   # print(test.GetArcs())
   # print(test.GetNodes())
