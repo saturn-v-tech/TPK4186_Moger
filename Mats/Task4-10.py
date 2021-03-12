@@ -1,232 +1,18 @@
-#Assignment 2
+# Task 4-8
+#-------
 
-
-# 1 Imported packages
-#--------------------
-
-import sys
-import re
+# 1 Packages
+#-----------
+from Task1 import *
+from Task3 import *
 import matplotlib.pyplot as plt
 import random
 
-#Task 1
-#-------------
 
-#2 Node
-#-------
+# 2 Class Calculator
+#-------------------
 
-class Node:
-  def __init__(self, nodeName):
-    self.nodeName = nodeName
-    self.arcs = []
-    self.visited = False
-    self.distance = 0
-    self.degree = 0
-
-  def GetNodeName(self):
-    return self.nodeName
-
-  def AddArc(self, arc):
-    self.arcs.append(arc)
-
-  def GetArcs(self):
-    return self.arcs
-
-  def GetVisited(self):
-    return self.visited                                 #Visited funtions are used to not check nodes twice in ExtractConnectedComponentOfGraph function
-
-  def SetVisited(self, value):
-    self.visited = value
-
-  def GetDistance(self):
-    return self.distance
-
-  def SetDistance(self, distance):                        #Distance functions and variable is used for task 9 and 10
-    self.distance = distance
-
-  def ResetDistance(self):
-    self.distance = 0
-
-  def SetDegree(self, degree):                          #Used to save the degree of a node and easy access in task 11 when degree is used for the probability
-    self.degree = degree
-
-  def GetDegree(self):
-    return self.degree
-
-
-# 2 Arcs
-#-------
-
-class Arc:
-  def __init__(self, node1, node2):
-    self.node1 = node1
-    self.node2 = node2
-    # self.arc = [node1, node2]
-
-  def GetArc(self):
-    return self.node1, self.node2
-
-
-#3 Graph
-#------
-
-class Graph:
-  def __init__(self, graphName):
-    self.graphName = graphName
-    self.nodes = dict()
-    self.arcs = []
-
-  def GetGraphName(self):
-    return self.graphName
-
-  def SetGraphName(self, graphName):
-    self.graphName = graphName
-
-  def GetNodes(self):
-    return self.nodes
-
-  def NewNode(self, nodeName):
-    node = Node(nodeName)
-    self.nodes[nodeName] = node
-    return node
-
-  def DeleteNode(self, nodeName):
-    node = self.GetNode(nodeName)
-    if node in self.nodes.values():
-      del self.nodes[nodeName]
-
-  def GetArcs(self):
-    return self.arcs
-
-  def NewArc(self, node1, node2):
-    arc = Arc(node1, node2)
-    self.arcs.append(arc)
-    node1.AddArc(arc)
-    node2.AddArc(arc)
-    return arc
-
-  def GetNode(self, nodeName):
-    nodes = self.GetNodes()
-    nodenames = nodes.keys()
-    if nodeName in nodenames:
-      return self.nodes[nodeName]
-    else:
-      return None
-
-  def SetDegree(self, degree):                            #Added to access easy for task 11
-    self.degree = degree
-
-  def GetDegree(self):
-    return self.degree
-
-
-#5 Printer
-#---------
-
-class Printer:
-
-
-  def PrintGraph(self, graphName, nodes, arcs, OutputFile):
-    try:
-      file= open(OutputFile, "w")
-    except:
-      sys.stderr.write("unable to write in file " + OutputFile + "\n")
-      sys.exit()
-    file.write('graph' + '\t' + str(graphName))
-    file.write('\n')
-    Printer.PrintNodes(self, nodes, file)
-    file.write('\n')
-    Printer.PrintArcs(self, arcs, file)
-    file.write('\n')
-    file.write('end')
-    file.flush()
-    file.close()
-  
-  def PrintNodes(self, nodes, file):                   #Function for printing nodes on the format shown
-    count = 1
-    file.write('nodes \n')
-    for nodeName in nodes:
-      if count%2 == 1:
-        file.write('  ' + nodeName)
-        count +=1
-      else:
-        file.write(', ')
-        file.write(nodeName)
-        if len(nodes) != count:
-          file.write(',')
-          file.write('\n')
-        else:
-          file.write(';')
-        count +=1
-
-  def PrintArcs(self, arcs, file):                      #Function for printing arcs on the format shown
-    file.write('arcs')
-    file.write('\n')
-    count = 0
-    lenArcs = 0
-    for arc in arcs:
-      if count == 0:                              #If count ==0, beginning of line and indent is added
-        file.write('  ')
-      if count <= 3:                                  # if count lower than 4, arc is added
-        file.write(arc.node1.GetNodeName() + ' <-> ' + arc.node2.GetNodeName())
-        count +=1
-        lenArcs += 1
-      if len(arcs) != lenArcs:         #As long as it's not the last arc, a comma is added
-        file.write(', ')
-      if count == 3:                    #New line for every 3 arc
-        file.write('\n')
-        count = 0
-      elif len(arcs) == lenArcs:           #Last arc gets a ; to end
-        file.write(';')
-
-# 6 Class Parser
-#---------------
-
-class Parser:
-
-  def ImportGraph(self, filename):
-    try:
-      file = open(filename, "r")
-    except:
-      sys.stderr.write("unable to open file " + filename + "\n")
-      sys.exit()
-    graph = self.ReadGraph(file)
-    file.flush()
-    file.close()
-    return graph
-
-
-  def ReadGraph(self, file):
-    state = 0
-    firstline = True
-    
-    for line in file:
-      newline = line.split()
-      if firstline:
-        graphName = newline[1]
-        graph = Graph(graphName)
-        firstline = False
-      elif re.match('nodes', line) != None:
-        state = 1
-      elif re.match('arcs', line) != None:
-        state = 2
-      elif re.match('end', line) != None:
-        break 
-      elif state == 1:
-        nodes = re.findall(r"[a-zA-Z0-9_][0-9]*", line)
-        for node in nodes:
-          graph.NewNode(node)
-      elif state == 2:
-        arcs = re.findall(r"([a-zA-Z0-9_][0-9]*\s*[<=>\t]*\s*[a-zA-Z0-9_][0-9]*)", line)
-        for arc in arcs:
-          arc = arc.split(' <=> ')                            #splits and gets the two nodes separated. May be improved by making it more general and not rely too much upon exact input with spaces etc
-          node1 = graph.GetNode(arc[0])
-          node2 = graph.GetNode(arc[1])
-          graph.NewArc(node1, node2)
-    return graph
-
-
-# 7 Class Calculator
+# 2 Class Calculator
 #-------------------
 
 class Calculator:
@@ -246,32 +32,32 @@ class Calculator:
       nodeDegree[nodeName1] += 1
       nodeDegree[nodeName2] += 1
     self.SetDegreeOfNodes(nodeDegree, inputGraph)
-    return nodeDegree                             #dictionary containing nodename and degree of node. outputprint is shown under tests
-
+    return nodeDegree
+  
 
   def SetDegreeOfNodes(self, nodeDegree, inputGraph):                   #Making for easier excecution of task 11 so that the degree is saved in the Node
     nodeNames = list(nodeDegree.keys())
     for node in nodeNames:
-      degree = nodeDegree[node]              #Every arc have two nodes. therefore the total degree of a graph is 2 times amount of arcs
+      degree = nodeDegree[node]
       node = inputGraph.GetNode(node)
+      if node == None:
+        continue
       node.SetDegree(degree)
-
 
 
   def SetDegreeOfGraph(self, inputGraph):
     arcs = inputGraph.GetArcs()
     degree = len(arcs)*2
-    inputGraph.SetDegree(degree)  
-
-
-
+    inputGraph.SetDegree(degree)
+    
 
   def PlotNodeDegreeDistritbution(self, inputGraph):
-    nodeDegrees = self.CalculateDegreeOfNodes(inputGraph)
+    nodeDegrees = self.CalculateDegreeOfGraph(inputGraph)
     Degrees = list(nodeDegrees.values())
     maxDegree = max(Degrees)
     listDegrees = list(range(1, maxDegree+1))
     listDegreeApperance = []
+    print(Degrees)
     for i in range(1, maxDegree+1):
       NumberOfApperarance = Degrees.count(i)
       listDegreeApperance.append(NumberOfApperarance)
@@ -301,7 +87,7 @@ class Calculator:
           elif node == node2:
             if node1 not in nodeConnectedList and node1 not in candidateList:
               candidateList.append(node1)
-    return nodeConnectedList                                                 #Output is a list of nodes(objects) that are connected. prit of names are shown under test (output)
+    return nodeConnectedList
 
 
 
@@ -315,7 +101,7 @@ class Calculator:
       else:
         nodeConnectedList = self.ExtractConnectedComponentOfNode(node)
         graphConnectedList.append(nodeConnectedList)
-    return graphConnectedList                                              #Outputlist containing lists of connected components(objects). To see the output with names of nodes, run the for loop mentioned under tests
+    return graphConnectedList
 
 
 
@@ -336,7 +122,7 @@ class Calculator:
 
   def PlotSizeDistributionOfConnectedComponentsOfGraph(self, graph):
     representedLengthComponents, numberOfLengthComponents = self.CalculateDistributionOfConnectedComponents(graph)
-    plt.bar(representedLengthComponents, numberOfLengthComponents, width = 2)
+    plt.bar(representedLengthComponents, numberOfLengthComponents)
     plt.xticks(representedLengthComponents)
     plt.yticks([i for i in range(1, max(numberOfLengthComponents)+1)])
     plt.xlabel('Number of connected components')
@@ -386,8 +172,7 @@ class Calculator:
       maxDistance = max(distances)
       if maxDistance > diameter:
         diameter = maxDistance
-    return diameter                                                #Output a number. print shown in tests
-
+    return diameter
 
 
 class Generator:
@@ -396,7 +181,7 @@ class Generator:
     calculator = Calculator()
     graph = Graph(graphName)
     listNodeNames = list(range(1, size+1))
-    for index in range(0, NumberOfInitinalNodes):                                               #Creating nodes in initial connected network
+    for index in range(NumberOfInitinalNodes):                                               #Creating nodes in initial connected network
       graph.NewNode(str(listNodeNames[index]))
     listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
     for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
@@ -405,14 +190,14 @@ class Generator:
         graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
       else:
         graph.NewArc(listOfNodes[i], listOfNodes[i+1])
-    for index in range(NumberOfInitinalNodes, len(listNodeNames)):          #loop to get through the rest of the nodes that are not in the initial connected network
+    for index in range(NumberOfInitinalNodes-1, len(listNodeNames)):          #loop to get through the rest of the nodes that are not in the initial connected network
       newNode = graph.NewNode(str(listNodeNames[index]))
       nodes = graph.GetNodes().values()
       calculator.CalculateDegreeOfGraph(graph)
       calculator.SetDegreeOfGraph(graph)
       for node in nodes:
         probability = node.GetDegree()/graph.GetDegree()
-        if random.random()<probability:                       # If the probability is higher than the randomly made number, an arc is made between the newnode and existing nodes in graph
+        if random.random()<probability:
           graph.NewArc(newNode, node)
       if len(newNode.GetArcs()) == 0:
         graph.DeleteNode(newNode.nodeName)
@@ -420,82 +205,49 @@ class Generator:
 
 
 
-# Defining classes for use
-#-------------------------
-printer = Printer()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Test Calculator
+#---------------
+
+#Imported graph for testing
+#--------------------------
 parser = Parser()
+graph = parser.ImportGraph('ParserTest.txt')     #Graph used for all tests. graph may be changed by adding/removing nodes and arcs in 'ParserTest.txt'
+
+
+
+# Test of Calculator
+#-------------------
 calculator = Calculator()               #Nececcary for all testing. leave uncommented
-generator = Generator()
 
-
-# Test graph
-#-----------
-
-# test = Graph("testGraph")           #Defining graphobject as test
-# node1 = test.NewNode("n11")           #Adding a new node with name "n11"
-# node2 = test.NewNode("n12")
-# node3 = test.NewNode("n21")
-# node4 = test.NewNode("n22")
-# node5 = test.NewNode("n31")
-# node6 = test.NewNode("n32")
-
-# arc1 = test.NewArc(node1, node2)    #Adding a new arc consisting of node1 and node 2 created above
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
-
-
-# print(Graph.GetGraphName(test))
-# print(test.GetNodes())
-# print(test.GetNode('a'))
-# print(test.GetArcs())
-# print(test.GetNodes())
-# print(test.GetArcs())
-
-
-#Test Printer
-#------------
-
-
-
-#Output
-#------
-
-testgraph = generator.BarabasiGraph('test1', 30, 6)
-graphName = testgraph.GetGraphName()
-nodeNames = list(testgraph.GetNodes().keys())
-arcs = testgraph.GetArcs()
-
-printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
-
-
-#Test Parser
-#-----------
-graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
-
-# print(graph.GetGraphName())
-# print(graph.GetNodes())
-# print(graph.GetArcs())
-
-
-
-# Test of CalculateDegreeOfNodes
+# Test of CalculateDegreeOfGraph
 #-------------------------------
 
-
-
-
 #Output
 #------
-# degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
+# degreeOfNodes = calculator.CalculateDegreeOfGraph(graph)
 # print(degreeOfNodes)
 # node = graph.GetNode('n12')
 # print(node.GetDegree())
 
-
 # Test of PlotNodeDegreeDistritbution
 #-------------------------------
-
-
 
 
 #Output
@@ -505,8 +257,6 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 
 # Test of ExtractConnectedComponentOfNode
 #----------------------------------------
-
-
 
 
 #Output
@@ -535,12 +285,9 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 #------------------------------------
 
 
-
-
 #Output
 #------
 # calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
-
 
 
 # Test of CalculateDistance
@@ -553,8 +300,6 @@ graph = parser.ImportGraph('ParserTest.txt')                    # Used for all t
 # NodesWithDistance = calculator.CalculateDistance(node, graph)
 # for node in NodesWithDistance:
 #   print(node.GetNodeName(), node.GetDistance())
-
-
 
 
 # Test of CalculateDiameter
@@ -575,6 +320,16 @@ generator = Generator()
 
 # Test of Generator
 # -----------------
-# testgraph = generator.BarabasiGraph('test1', 20, 2)
+testgraph = generator.BarabasiGraph('test1', 40, 3)
+graphName = testgraph.GetGraphName()
+nodeNames = list(testgraph.GetNodes().keys())
+arcs = testgraph.GetArcs()
+
+# print(nodeNames)
+# print(graphName)
+# print(len(arcs))
+
+
+
 
 

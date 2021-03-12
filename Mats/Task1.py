@@ -11,13 +11,14 @@ class Node:
     self.nodeName = nodeName
     self.arcs = []
     self.visited = False
+    self.distance = 0
+    self.degree = 0
 
   def GetNodeName(self):
     return self.nodeName
 
   def AddArc(self, arc):
     self.arcs.append(arc)
-
 
   def GetArcs(self):
     return self.arcs
@@ -27,6 +28,22 @@ class Node:
 
   def SetVisited(self, value):
     self.visited = value
+
+  def GetDistance(self):
+    return self.distance
+
+  def SetDistance(self, distance):
+    self.distance = distance
+
+  def ResetDistance(self):
+    self.distance = 0
+
+  def SetDegree(self, degree):                          #Used to save the degree of a node and easy access in task 11 when degree is used for the probability
+    self.degree = degree
+
+  def GetDegree(self):
+    return self.degree
+
 
 
 # 2 Arcs
@@ -50,6 +67,7 @@ class Graph:
     self.graphName = graphName
     self.nodes = dict()
     self.arcs = []
+    self.degree = 0
 
   def GetGraphName(self):
     return self.graphName
@@ -65,8 +83,11 @@ class Graph:
     self.nodes[nodeName] = node
     return node
 
-  def DelNode(self, nodeName):
-    del self.nodes[nodeName]
+  def DeleteNode(self, nodeName):
+    node = self.GetNode(nodeName)
+    if node in self.nodes.values():
+      del self.nodes[nodeName]
+
 
   def GetArcs(self):
     return self.arcs
@@ -86,7 +107,11 @@ class Graph:
     else:
       return None
 
+  def SetDegree(self, degree):
+    self.degree = degree
 
+  def GetDegree(self):
+    return self.degree
 
 
 # Test nodes
@@ -110,16 +135,16 @@ class Graph:
 
 test = Graph("testGraph")
 
-# node1 = test.NewNode("n11")
-# node2 = test.NewNode("n12")
-# node3 = test.NewNode("n21")
-# node4 = test.NewNode("n22")
-# node5 = test.NewNode("n31")
-# node6 = test.NewNode("n32")
+node1 = test.NewNode("n11")
+node2 = test.NewNode("n12")
+node3 = test.NewNode("n21")
+node4 = test.NewNode("n22")
+node5 = test.NewNode("n31")
+node6 = test.NewNode("n32")
 
-# arc1 = test.NewArc(node1, node2)
-# arc2 = test.NewArc(node3, node4)
-# arc3 = test.NewArc(node2, node4)
+arc1 = test.NewArc(node1, node2)
+arc2 = test.NewArc(node3, node4)
+arc3 = test.NewArc(node2, node4)
 
 # print(node1.GetArcs())
 
@@ -139,8 +164,8 @@ test = Graph("testGraph")
 # print(test.GetNode('a'))
 # print(test.GetArcs())
 
+# test.DeleteNode('n22')
 # print(test.GetNodes())
 # print(test.GetArcs())
-
-
+# print(test.nodes.get("n11"))
 
