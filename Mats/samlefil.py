@@ -455,7 +455,7 @@ generator = Generator()
 #Task 12
 #-------
 
-#Nececcary values for testing, LEAV UNCOMMENTED
+# Nececcary values for testing, LEAV UNCOMMENTED
 # To test the respective task uncomment the part under the marks
 #----------------------------
 
@@ -469,8 +469,7 @@ arcs = testgraph.GetArcs()
 #Print generated network
 #-----------------------
 
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
-
+printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
 
 
 #Parse generated network
@@ -511,41 +510,8 @@ arcs = testgraph.GetArcs()
 
 # diameter = calculator.CalculateDiameter(testgraph)            #Calculates diameter
 # graphName = testgraph.GetGraphName()                            #Gets Name of graph
-# print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variables
+# print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variabl
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-# def VerifyingSingleConnectedComponent(graph):
->>>>>>> 40a4548849068a26c35ec1ce91a712b0e5210472
 
 
 
@@ -598,14 +564,10 @@ if __name__ == '__main__':
   for i in test.GetArcs():
     assert isinstance(i, object)
 
-<<<<<<< HEAD
-
-=======
   print("Task 1: okay")
 
   ### Task 2: Test Printer ###
   # --------------------------
->>>>>>> 40a4548849068a26c35ec1ce91a712b0e5210472
 
   # nodes = {'n11': 1, 'n12': 2, 'n21': 3, 'n22': 4, 'n31': 5, 'n32': 6}
   # arcs = [['n11', 'n12'],
