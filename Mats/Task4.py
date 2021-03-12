@@ -49,7 +49,7 @@ graph = parser.ImportGraph('ParserTest.txt')
 # Test of Calculator
 #-------------------
 calculator = Calculator()
-# calculator.CalculateDegreeOfNodes(graph)
+# print(calculator.CalculateDegreeOfNodes(graph))
 # print(calculator.CalculateDegreeOfNodes(graph))
 
 

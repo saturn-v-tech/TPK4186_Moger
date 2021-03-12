@@ -2,17 +2,17 @@
 
 
 # 1 Imported packages
-#--------------------
+# --------------------
 
 import sys
 import re
 import matplotlib.pyplot as plt
 import random
 
-#Task 1
-#-------------
+# Task 1
+# -------------
 
-#2 Node
+# 2 Class Node
 #-------
 
 class Node:
@@ -54,8 +54,8 @@ class Node:
     return self.degree
 
 
-# 2 Arcs
-#-------
+# 2 Class Arcs
+# -------
 
 class Arc:
   def __init__(self, node1, node2):
@@ -67,8 +67,8 @@ class Arc:
     return self.node1, self.node2
 
 
-#3 Graph
-#------
+# 3 Class Graph
+# ------
 
 class Graph:
   def __init__(self, graphName):
@@ -120,8 +120,8 @@ class Graph:
     return self.degree
 
 
-#5 Printer
-#---------
+# 4 Class Printer
+# ---------
 
 class Printer:
 
@@ -179,7 +179,7 @@ class Printer:
       elif len(arcs) == lenArcs:           #Last arc gets a ; to end
         file.write(';')
 
-# 6 Class Parser
+# 5 Class Parser
 #---------------
 
 class Parser:
@@ -225,7 +225,7 @@ class Parser:
     return graph
 
 
-# 7 Class Calculator
+# 6 Class Calculator
 #-------------------
 
 class Calculator:
@@ -387,7 +387,11 @@ class Calculator:
         diameter = maxDistance
     return diameter                                                #Output a number. print shown in tests
 
+# Task 11 
+# ---------
 
+# 8 Class Generator
+# -----------------
 
 class Generator:
 
@@ -436,9 +440,9 @@ generator = Generator()
 
 
 #Task 12
-#-------
+#----------------------------
 
-#Nececcary values for testing, LEAV UNCOMMENTED
+# Nececcary values for testing, LEAVE UNCOMMENTED
 # To test the respective task uncomment the part under the marks
 #----------------------------
 
@@ -447,56 +451,6 @@ testgraph = generator.BarabasiGraph('test1', 50, NumberOfInitinalNodes)         
 graphName = testgraph.GetGraphName()
 nodeNames = list(testgraph.GetNodes().keys())
 arcs = testgraph.GetArcs()
-
-
-#Print generated network
-#-----------------------
-
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
-
-
-
-#Parse generated network
-#-----------------------
-
-printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-print(graph.GetGraphName())                                 # Showing print of what's read in from file
-print(list(graph.GetNodes().keys()))
-for arc in graph.GetArcs():
-  print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
-
-
-#Verify a single connected component
-#-----------------------------------
-
-# def VerifyingSingleConnectedComponent(graph, NumberOfInitinalNodes):
-#   graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)      ##Outputlist containing lists of connected components(objects). If only one List, then they're all connected
-#   if len(graphConnectedList) == 1:
-#     print('netwotk is made of one single connected component')
-#   else:
-#     print('Network is NOT made of one singre connected component')
-
-
-# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)       #Prints if the network is connected or not
-
-
-#Extract and plot distribution of degree
-#---------------------------------------
-
-# calculator.PlotNodeDegreeDistritbution(testgraph)          #Makes plot and saves as pdf
-# degrees = calculator.CalculateDegreeOfNodes(testgraph)
-# print(degrees)                                                #Print of the variables (nodename:degree of node)
-
-
-#Calculate diameter of netwotk
-#-----------------------------
-
-# diameter = calculator.CalculateDiameter(testgraph)            #Calculates diameter
-# graphName = testgraph.GetGraphName()                            #Gets Name of graph
-# print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variables
-
-
 
 
 ### TEST SECTION ### 
@@ -517,10 +471,12 @@ if __name__ == '__main__':
 
   # Defining graph object
   # ------------------------
+
   test = Graph("testGraph")
 
   # Adding a new nodes
   # ------------------------
+
   node1 = test.NewNode("n11")           
   node2 = test.NewNode("n12")
   node3 = test.NewNode("n21")
@@ -530,12 +486,14 @@ if __name__ == '__main__':
 
   # Adding a new arcs consisting of nodes created above 
   # ---------------------------------------------------
+
   arc1 = test.NewArc(node1, node2)  
   arc2 = test.NewArc(node3, node4)
   arc3 = test.NewArc(node2, node4)
 
   # Assertions 
   # ---------------------------------------------------
+
   assert Graph.GetGraphName(test) == "testGraph"
 
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
@@ -555,6 +513,7 @@ if __name__ == '__main__':
 
   # Task 2 is tested below under Task 3
 
+
   ### Task 3: Test Parser ###
   # -------------------------
   
@@ -568,66 +527,45 @@ if __name__ == '__main__':
   # arcs = testgraph.GetArcs()
 
   # Generating printed network for parsing
+  # Parsing generated network
+  # Showing print of what's read in from file
   # --------------------------------------
 
-  # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-  # graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-  # print(graph.GetGraphName())                                 # Showing print of what's read in from file
+  printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+  graph = parser.ImportGraph('TestGeneratedGraph.txt')       
+  # print(graph.GetGraphName())                             
   # print(list(graph.GetNodes().keys()))
   # for arc in graph.GetArcs():
   #   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
 
 
-  ### Task 3: Test Parser ###
-  # -------------------------
-  graph = parser.ImportGraph('ParserTest.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
+  ### Task 4: Test of CalculateDegreeOfNodes ###
+  # ---------------------------------------
 
-  # Test of CalculateDegreeOfNodes
+  # Prints dictionary containing nodename and degree of node
+  # ------------------------------------------------------
+
+  # print(calculator.CalculateDegreeOfNodes(graph))
+
+
+  ### Task 5: Test of PlotNodeDegreeDistritbution ###
   #-------------------------------
 
-
-
-
-  #Output
-  #------
-  # degreeOfNodes = calculator.CalculateDegreeOfNodes(graph)
-  # print(degreeOfNodes)
-  # node = graph.GetNode('n12')
-  # print(node.GetDegree())
-
-
-  # Test of PlotNodeDegreeDistritbution
-  #-------------------------------
-
-
-
-
-  #Output
-  #------
   # calculator.PlotNodeDegreeDistritbution(graph)
 
 
-  # Test of ExtractConnectedComponentOfNode
+  ### Task 6: Test of ExtractConnectedComponentOfNode ### 
   #----------------------------------------
 
-
-
-
-  #Output
-  #------
-  # node = graph.GetNode('n12')
+  # node = graph.GetNode('1')
   # connectedList = calculator.ExtractConnectedComponentOfNode(node)
   # for node in connectedList:
   #   print(node.GetNodeName())
 
 
-  # Test of ExtractConnectedComponentOfGraph
+  ### Task 7: Test of ExtractConnectedComponentOfGraph ###
   #-----------------------------------------
 
-
-
-  #Output
-  #------
   # graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
   # for nodeConnectedList in graphConnectedList:
   #   for node in nodeConnectedList:
@@ -635,47 +573,85 @@ if __name__ == '__main__':
   #   print('\n')
 
 
-  # Test of PlotSizeDistributionOfGraph
+  ### Task 8: Test of PlotSizeDistributionOfGraph ###
   #------------------------------------
 
+  # calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)
 
 
-
-  #Output
-  #------
-  # calculator.PlotSizeDistributionOfConnectedComponentsOfGraph(graph)             #Plot
-
-
-
-  # Test of CalculateDistance
+  ### Task 9: Test of CalculateDistance ### 
   # --------------------------
 
-
-  #Output
-  #------
-  # node = graph.GetNode('n11')
+  # node = graph.GetNode('1')
   # NodesWithDistance = calculator.CalculateDistance(node, graph)
   # for node in NodesWithDistance:
   #   print(node.GetNodeName(), node.GetDistance())
 
 
-
-
-  # Test of CalculateDiameter
+  ### Task 10: Test of CalculateDiameter ###
   # -------------------------
 
-
-
-  #Output
-  #------
   # diameter = calculator.CalculateDiameter(graph)
   # print(diameter)
 
 
+  ### Task 11: Generator ###
+  # -------------------------
 
-  # Generator
-  # ---------
-  generator = Generator()
+  # Task 11 and the Generator Class has been used to generate datasets to this point
 
-  # Test of Generator
-  # -----------------
+  ### Task 12: Generator and Calculator ###
+  # ----------------------------------------
+
+  # Print generated network
+  # -----------------------
+
+  # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')
+
+  # Generating printed network for parsing
+  # Parsing Generated network
+  # Showing print of what's read in from file
+  # -----------------------
+
+  # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') 
+  # graph = parser.ImportGraph('TestGeneratedGraph.txt')         
+  # print(graph.GetGraphName())                                 
+  # print(list(graph.GetNodes().keys()))
+  # for arc in graph.GetArcs():
+  #   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+
+  # Verify a single connected component
+  # Outputlist containing lists of connected components (objects). 
+  # If only one List, then they're all connected
+  # Prints if the network is connected or not
+  # -----------------------------------
+
+  # def VerifyingSingleConnectedComponent(graph, NumberOfInitinalNodes):
+  #   graphConnectedList = calculator.ExtractConnectedComponentOfGraph(graph)
+  #   if len(graphConnectedList) == 1:
+  #     print('netwotk is made of one single connected component')
+  #   else:
+  #     print('Network is NOT made of one singre connected component')
+
+  # VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)
+
+
+  # Extract and plot distribution of degree
+  # Makes plot and saves as pdf
+  # Print of the variables (nodename:degree of node)
+  # ---------------------------------------
+
+  # calculator.PlotNodeDegreeDistritbution(testgraph)         
+  # degrees = calculator.CalculateDegreeOfNodes(testgraph)
+  # print(degrees)                                                
+
+
+  # Calculates diameter of network
+  # Gets Name of graph
+  # Prints variables
+  # -----------------------------
+
+  # diameter = calculator.CalculateDiameter(testgraph)            
+  # graphName = testgraph.GetGraphName()                            
+  # print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       
+
