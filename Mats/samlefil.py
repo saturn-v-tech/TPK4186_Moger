@@ -128,7 +128,6 @@ class Graph:
 
 class Printer:
 
-
   def PrintGraph(self, graphName, nodes, arcs, OutputFile):
     try:
       file= open(OutputFile, "w")
@@ -460,9 +459,11 @@ if __name__ == '__main__':
   # ------------------------
 
   # Defining graph object
+  # ------------------------
   test = Graph("testGraph")
 
   # Adding a new nodes
+  # ------------------------
   node1 = test.NewNode("n11")           
   node2 = test.NewNode("n12")
   node3 = test.NewNode("n21")
@@ -471,11 +472,13 @@ if __name__ == '__main__':
   node6 = test.NewNode("n32")
 
   # Adding a new arcs consisting of nodes created above 
+  # ---------------------------------------------------
   arc1 = test.NewArc(node1, node2)  
   arc2 = test.NewArc(node3, node4)
   arc3 = test.NewArc(node2, node4)
 
   # Assertions 
+  # ---------------------------------------------------
   assert Graph.GetGraphName(test) == "testGraph"
 
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
@@ -493,67 +496,37 @@ if __name__ == '__main__':
   ### Task 2: Test Printer ###
   # --------------------------
 
-  # Defining a Graph object
-  #------------------------
-
-  test = Graph("testGraph") 
-
-  # Adding new nodes
-  #-----------------
-
-  node1 = test.NewNode("n11")
-  node2 = test.NewNode("n12")
-  node3 = test.NewNode("n21")
-  node4 = test.NewNode("n22")
-  node5 = test.NewNode("n31")
-  node6 = test.NewNode("n32")
-
-  # Adding a new arcs using nodes created above
-  #--------------------------------------------
-
-  # arc1 = test.NewArc(node1, node2)
-  # arc2 = test.NewArc(node3, node4)
-  # arc3 = test.NewArc(node2, node4)
-
-  # Assertions 
-  # assert Graph.GetGraphName(test) == "testGraph"
-  # assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-  # print(test.GetNodes().values())
-
-  # print(test.GetNode('a'))
-  # print(test.GetArcs())
-  # print(test.GetNodes())
-  # print(test.GetArcs())
-
-
-
+  # nodes = {'n11': 1, 'n12': 2, 'n21': 3, 'n22': 4, 'n31': 5, 'n32': 6}
+  # arcs = [['n11', 'n12'],
+  #   ['n11', 'n21'], 
+  #   ['n12', 'n22'], 
+  #   ['n21', 'n22'], 
+  #   ['n21', 'n31'], 
+  #   ['n22', 'n32'], 
+  #   ['n31', 'n32']]
+  # printer.PrintGraph('Grid32', nodes, arcs, 'test.txt')  
 
   #Output
   #------
 
-
-  # testgraph = generator.BarabasiGraph('test1', 30, 6)
-  # graphName = testgraph.GetGraphName()
-  # nodeNames = list(testgraph.GetNodes().keys())
-  # arcs = testgraph.GetArcs()
-
   # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
 
+  ### Task 3: Test Parser ###
+  #--------------------------
+  
+  # The variable graph is used to test following tasks
+  # Graph may be changed by adding/removing to/from ParserTest.txt
+  graph = parser.ImportGraph('TestGeneratedGraph.txt')
+  graph = parser.ImportGraph('test.txt')
 
-  #Test Parser
-  #-----------
-  # graph = parser.ImportGraph('TestGeneratedGraph.txt')                    # Used for all tasks. Graph may be changed by adding/removing to/from ParserTest.txt
-  # graph = parser.ImportGraph('test.txt')
+  testgraph = generator.BarabasiGraph('test1', 30, 6)
+  graphName = testgraph.GetGraphName()
+  nodeNames = list(testgraph.GetNodes().keys())
+  arcs = testgraph.GetArcs()
 
-  # testgraph = generator.BarabasiGraph('test1', 30, 6)
-  # graphName = testgraph.GetGraphName()
-  # nodeNames = list(testgraph.GetNodes().keys())
-  # arcs = testgraph.GetArcs()
-
-  # print(graph.GetGraphName())
-  # print(graph.GetNodes())
-  # print(graph.GetArcs())
-
+  print(graph.GetGraphName())
+  print(graph.GetNodes())
+  print(graph.GetArcs())
 
 
   ### Task 3: Test Parser ###
@@ -674,3 +647,7 @@ if __name__ == '__main__':
   # Verify that generated network made of single connected nodes
   #-------------------------------------------------------------
 
+  # testgraph = generator.BarabasiGraph('test1', 30, 6)
+  # graphName = testgraph.GetGraphName()
+  # nodeNames = list(testgraph.GetNodes().keys())
+  # arcs = testgraph.GetArcs()
