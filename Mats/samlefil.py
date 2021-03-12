@@ -475,13 +475,15 @@ if __name__ == '__main__':
   # Assertions 
   assert Graph.GetGraphName(test) == "testGraph"
   assert list(test.GetNodes().keys()) == ['n11', 'n12', 'n21', 'n22', 'n31', 'n32']
-  print(test.GetNodes().values())
+  for i in test.GetNodes().values():
+    assert isinstance(i, object)
 
-  # print(test.GetNode('a'))
-  # print(test.GetArcs())
+  assert test.GetNode('a') == None # Node 'a' doesn't exist, should therefore return None
+  print(test.GetArcs()[1])
   # print(test.GetNodes())
   # print(test.GetArcs())
 
+  print("Task 1: okay")
 
   ### Task 2: Test Printer ###
   # --------------------------
