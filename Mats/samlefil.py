@@ -475,12 +475,12 @@ arcs = testgraph.GetArcs()
 #Parse generated network
 #-----------------------
 
-# printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-# graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-# print(graph.GetGraphName())                                 # Showing print of what's read in from file
-# print(list(graph.GetNodes().keys()))
-# for arc in graph.GetArcs():
-#   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+print(graph.GetGraphName())                                 # Showing print of what's read in from file
+print(list(graph.GetNodes().keys()))
+for arc in graph.GetArcs():
+  print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
 
 
 #Verify a single connected component
@@ -576,18 +576,22 @@ if __name__ == '__main__':
   
   # The variable graph is used to test following tasks
   # Graph may be changed by adding/removing to/from ParserTest.txt
+  # --------------------------------------------------------------
 
-  testgraph = generator.BarabasiGraph('test1', 30, 6)
-  graphName = testgraph.GetGraphName()
-  nodeNames = list(testgraph.GetNodes().keys())
-  arcs = testgraph.GetArcs()
+  # testgraph = generator.BarabasiGraph('test1', 30, 6)
+  # graphName = testgraph.GetGraphName()
+  # nodeNames = list(testgraph.GetNodes().keys())
+  # arcs = testgraph.GetArcs()
 
-  printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
-  graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-  print(graph.GetGraphName())                                 # Showing print of what's read in from file
-  print(list(graph.GetNodes().keys()))
-  for arc in graph.GetArcs():
-    print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
+  # Generating printed network for parsing
+  # --------------------------------------
+
+  # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
+  # graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
+  # print(graph.GetGraphName())                                 # Showing print of what's read in from file
+  # print(list(graph.GetNodes().keys()))
+  # for arc in graph.GetArcs():
+  #   print(arc.node1.GetNodeName(), arc.node2.GetNodeName())
 
 
   ### Task 3: Test Parser ###
