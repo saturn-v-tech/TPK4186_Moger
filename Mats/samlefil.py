@@ -397,17 +397,22 @@ class Generator:
     listNodeNames = list(range(1, size+1))
     for index in range(0, NumberOfInitinalNodes):                                               #Creating nodes in initial connected network
       graph.NewNode(str(listNodeNames[index]))
-    listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
-    for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
-      if i == 0:
-        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
-        graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
-      else:
-        graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+      listOfNodes = list(graph.GetNodes().values())                          #GetNodes returns dictionary with 'nodeName':node
+    if NumberOfInitinalNodes < 2:
+      return print('need number equal to 2 or higher')
+    elif NumberOfInitinalNodes == 2:
+      graph.NewArc(listOfNodes[0], listOfNodes[1])
+    else:
+      for i in range(0,NumberOfInitinalNodes-1):                           #Making  initial connected network consisting of m_0 nodes(NumberOfInitinalNodes)
+        if i == 0:
+          graph.NewArc(listOfNodes[i], listOfNodes[i+1])
+          graph.NewArc(listOfNodes[i], listOfNodes[len(listOfNodes)-1])
+        else:
+          graph.NewArc(listOfNodes[i], listOfNodes[i+1])
     for index in range(NumberOfInitinalNodes, len(listNodeNames)):          #loop to get through the rest of the nodes that are not in the initial connected network
       newNode = graph.NewNode(str(listNodeNames[index]))
       nodes = graph.GetNodes().values()
-      calculator.CalculateDegreeOfGraph(graph)
+      calculator.CalculateDegreeOfNodes(graph)
       calculator.SetDegreeOfGraph(graph)
       for node in nodes:
         probability = node.GetDegree()/graph.GetDegree()
@@ -435,14 +440,19 @@ generator = Generator()
 #Task 12
 #-------
 
+#Nececcary values for testing, LEAV UNCOMMENTED
+# To test the respective task uncomment the part under the marks
+#----------------------------
+
+NumberOfInitinalNodes = 2
+testgraph = generator.BarabasiGraph('test1', 50, NumberOfInitinalNodes)             #Variables (graphName, size, NumberOfInitinalNodes)
+graphName = testgraph.GetGraphName()
+nodeNames = list(testgraph.GetNodes().keys())
+arcs = testgraph.GetArcs()
+
+
 #Print generated network
 #-----------------------
-
-# NumberOfInitinalNodes = 2
-# testgraph = generator.BarabasiGraph('test1', 20, NumberOfInitinalNodes)
-# graphName = testgraph.GetGraphName()
-# nodeNames = list(testgraph.GetNodes().keys())
-# arcs = testgraph.GetArcs()
 
 # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt')        #Print of generated networkf
 
@@ -451,14 +461,8 @@ generator = Generator()
 #Parse generated network
 #-----------------------
 
-# testgraph = generator.BarabasiGraph('test1', 20, 3)
-# graphName = testgraph.GetGraphName()
-# nodeNames = list(testgraph.GetNodes().keys())
-# arcs = testgraph.GetArcs()
-
 # printer.PrintGraph(graphName, nodeNames, arcs, 'TestGeneratedGraph.txt') #Generating printed network for parsing
 # graph = parser.ImportGraph('TestGeneratedGraph.txt')         #Parsing Generated network
-
 # print(graph.GetGraphName())                                 # Showing print of what's read in from file
 # print(list(graph.GetNodes().keys()))
 # for arc in graph.GetArcs():
@@ -475,9 +479,24 @@ generator = Generator()
 #   else:
 #     print('Network is NOT made of one singre connected component')
 
-# NumberOfInitinalNodes = 2
-# testgraph = generator.BarabasiGraph('test1', 20, NumberOfInitinalNodes)
-# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)
+
+# VerifyingSingleConnectedComponent(testgraph, NumberOfInitinalNodes)       #Prints if the network is connected or not
+
+
+#Extract and plot distribution of degree
+#---------------------------------------
+
+# calculator.PlotNodeDegreeDistritbution(testgraph)          #Makes plot and saves as pdf
+# degrees = calculator.CalculateDegreeOfNodes(testgraph)
+# print(degrees)                                                #Print of the variables (nodename:degree of node)
+
+
+#Calculate diameter of netwotk
+#-----------------------------
+
+# diameter = calculator.CalculateDiameter(testgraph)            #Calculates diameter
+# graphName = testgraph.GetGraphName()                            #Gets Name of graph
+# print("The diameter of {0:s} is {1:d}".format(graphName,diameter))       #Prints variables
 
 
 
