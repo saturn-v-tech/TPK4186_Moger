@@ -85,16 +85,16 @@ print(a, b, c, d, e, f, g)
 # ax.legend()
 # plt.show()
 
-# df = pd.read_csv("project001.tsv", sep = '\t', header = 2)
+df = pd.read_csv("project001.tsv", sep = '\t', header = 2)
 
-# for i in df.Foundation:
-#     if 0 < i < 100:
-#         Foundation += 1 
+for i in df.Foundation:
+    if 0 < i < 100:
+        Foundation += 1 
 
-# print(Foundation)
+print(Foundation)
 
-# print(df.tail(5))
-# print(len(df))
+print(df.tail(5))
+print(len(df))
 
-# df.plot(x = 'Week', y = ['Foundation', 'Framing', 'CurtainWall', 'HVAC', 'FireFighting', 'Elevator', 'Electrical', 'ArchitecturalFinishing'], kind = 'line')
-# plt.show()
+df.plot(x = 'Week', y = ['Foundation', 'Framing', 'CurtainWall', 'HVAC', 'FireFighting', 'Elevator', 'Electrical', 'ArchitecturalFinishing'], kind = 'line')
+plt.show()

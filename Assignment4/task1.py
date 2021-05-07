@@ -16,6 +16,7 @@ import pandas as pd
 import csv 
 import matplotlib.pyplot as plt
 import os 
+import numpy as np
 
 # Global variables used when writing the code
 # -------------------------------------------
@@ -76,7 +77,16 @@ class Parser:
 
                 self.dataframe = df
 
-                delay_vector.append(df['Week'].iloc[-1])
+            delay_vector.append(df['Week'].iloc[-1])
+
+            # Statistics 
+
+            delay_mean = np.mean(delay_vector)
+            delay_std = np.std(delay_vector)
+
+            
+
+        print(delay_mean, delay_std)
 
         # Histogram plot 
 
@@ -86,8 +96,8 @@ class Parser:
         plt.xlabel('Percentage overdue, where 1 is on time (bins = 10)', fontsize=10)
         plt.ylabel('# of projects', fontsize=10)
         plt.title('Duration of construction projects')
-
-        plt.show()
+        # plt.savefig('histogram.jpg')
+        # plt.show()
 
 # Defining class
 

@@ -21,7 +21,6 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 from docx import Document
 
-
 # Parser
 #--------
 
