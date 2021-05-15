@@ -8,7 +8,6 @@
 
 # Task 1: Normalization and statistics 
 
-
 # 1. Imported packages
 # --------------------------------------
 
@@ -84,7 +83,7 @@ class Parser:
             delay_mean = np.mean(delay_vector)
             delay_std = np.std(delay_vector)
 
-            
+
 
         print(delay_mean, delay_std)
 

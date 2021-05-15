@@ -36,7 +36,11 @@ class Parser:
 
         df_main = pd.DataFrame() # Setting up empty data frame for all project data
 
+        activities = ["Foundation", "Framing", "CurtainWall", "HVAC", "FireFighting", "Elevator", "Electrical", "ArchitecturalFinishing"]
+
         delay_vector = []
+
+        vis_vector = [[], [], []]
 
         for filename in os.listdir(inputFile):
             f = os.path.join(inputFile, filename)
@@ -52,10 +56,7 @@ class Parser:
                             self.expectedDuration = row[1]
                         else:
                             break
-                        count += 1 
-                    # print(self.name, self.expectedDuration)
-
-                    # duration = self.expectedDuration
+                        count += 1
 
                     # Normalization of data structure using pandas data frame 
 
@@ -64,7 +65,7 @@ class Parser:
                     duration = df['Week'].iloc[-1]
 
                     df['Week'] = df['Week']/int(self.expectedDuration)
-                    df['Foundation'] = df['Foundation']/100 # This is not neseccary, but we prefered to have all the data on same format. 
+                    df['Foundation'] = df['Foundation']/100
                     df['Framing'] = df['Framing']/100
                     df['CurtainWall'] = df['CurtainWall']/100
                     df['HVAC'] = df['HVAC']/100
@@ -72,6 +73,9 @@ class Parser:
                     df['Elevator'] = df['Elevator']/100
                     df['Electrical'] = df['Electrical']/100
                     df['ArchitecturalFinishing'] = df['ArchitecturalFinishing']/100
+
+                    
+
 
                     for i in range(len(df)):
                         delay_vector.append(int(duration))
@@ -102,5 +106,5 @@ parser = Parser()
 
 inputFile = 'Project Data'
 
-print(parser.readFile(inputFile))
+print(parser.readFile(inputFile).head(785))
 
